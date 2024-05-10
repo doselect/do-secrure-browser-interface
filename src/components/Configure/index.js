@@ -13,6 +13,19 @@ const Configure = () => {
         setRunningProcess(res.result);
       });
     }
+
+    if (window.electron) {
+      const { listenToElectron } = window.electron;
+      listenToElectron("test", (event, res) => {
+        console.log(event);
+      });
+      listenToElectron("screenCount", (event, res) => {
+        if (event == "display-added") {
+          window.alert("display added HDMI cable");
+        }
+        console.log(event);
+      });
+    }
   }, []);
 
   return <div>{runningProcess}</div>;
