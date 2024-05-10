@@ -16,9 +16,9 @@ const environmentConfig = {
 export function buildGetRunningProcessWinCommand(
   config = environmentConfig.redtrictedApps
 ) {
-  // const processes = config.map(name => `'${name}'`).join(", ");
-  // return `powershell -command "$runningProcesses = Get-Process -Name ${processes} -ErrorAction SilentlyContinue; "`;
-  return `ps -A -o pid,comm | grep chrome `;
+  const processes = config.map(name => `'${name}'`).join(", ");
+  return `powershell -command "$runningProcesses = Get-Process -Name ${processes} -ErrorAction SilentlyContinue; "`;
+  // return `ps -A -o pid,comm | grep chrome `;
 }
 
 function buildKillRunningProcessWinCommand(
