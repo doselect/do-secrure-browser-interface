@@ -2,7 +2,7 @@ const environmentConfig = {
   screenAllowed: 1,
   redtrictedApps: [
     "chrome",
-    "ms-edge",
+    "msedge",
     "firefox",
     "teams",
     "zoom",
@@ -17,13 +17,13 @@ export function buildGetRunningProcessWinCommand(
   config = environmentConfig.redtrictedApps
 ) {
   const processes = config.map(name => `'${name}'`).join(", ");
-  return `powershell -command "$runningProcesses = Get-Process -Name ${processes} -ErrorAction SilentlyContinue; "`;
+  return `powershell -command "$runningProcesses = Get-Process -Name ${processes} -ErrorAction SilentlyContinue; $runningProcesses | Select-Object -Property Name  | ConvertTo-Csv -NoTypeInformation"`;
   // return `ps -A -o pid,comm | grep chrome `;
 }
 
-function buildKillRunningProcessWinCommand(
+export function buildKillRunningProcessWinCommand(
   config = environmentConfig.redtrictedApps
 ) {
   const processes = config.map(name => `'${name}'`).join(", ");
-  return `powershell -command "Stop-Process -Name ${processes} -Force }"`;
+  return `powershell -command "Stop-Process -Name ${processes} -Force "`;
 }
