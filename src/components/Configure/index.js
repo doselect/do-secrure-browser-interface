@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CONFIGURE } from "../../util/constant";
+import { CONFIGURE, CONFIGURE_SHORTCUT_KEYS } from "../../util/constant";
 import {
   buildGetRunningProcessWinCommand,
   buildKillRunningProcessWinCommand,
+  blockedShortcuts,
 } from "../../util/helper";
 const Configure = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
@@ -15,6 +16,16 @@ const Configure = () => {
       };
       exec(CONFIGURE, payload, res => {
         setRunningProcess(new Set(res.result.split("\r")));
+      });
+    }
+
+    if (window.electron) {
+      const { exec } = window.electron;
+      const payload = {
+        blockedShortcuts,
+      };
+      exec(CONFIGURE_SHORTCUT_KEYS, payload, res => {
+        console.log(res);
       });
     }
 
@@ -32,15 +43,16 @@ const Configure = () => {
 
     if (window.electron) {
       const { listenToElectron } = window.electron;
-      listenToElectron("test", (event, res) => {
-        console.log(event);
-      });
+
       listenToElectron("screenCount", (event, res) => {
         if (event == "display-added") {
           window.alert("display added HDMI cable");
         }
         console.log(event);
       });
+    }
+
+    if (window.electron) {
     }
   }, [checkAgain]);
 
