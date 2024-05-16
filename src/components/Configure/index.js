@@ -51,9 +51,6 @@ const Configure = () => {
         console.log(event);
       });
     }
-
-    if (window.electron) {
-    }
   }, [checkAgain]);
 
   useEffect(() => {
@@ -74,6 +71,19 @@ const Configure = () => {
     }
   }, [runningProcess, setCheckAgain]);
 
+  const startTest = () => {
+    if (window.electron) {
+      const { sendMsgToElectron } = window.electron;
+      sendMsgToElectron("START_TEST", {}, res => {
+        console.log(res);
+      });
+
+      sendMsgToElectron("STOP_KEYS", "abc.ahk", res => {
+        console.log(res);
+      });
+    }
+  };
+
   return (
     <>
       <div>Checking environment......</div>
@@ -84,6 +94,7 @@ const Configure = () => {
             <li key={process}>{process}</li>
           ))}
         </ul>
+        <button onClick={startTest}>start test</button>
       </div>
     </>
   );

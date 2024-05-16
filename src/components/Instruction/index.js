@@ -64,7 +64,7 @@ const Instruction = () => {
               className="download secondary"
               onClick={() => {
                 window.open(
-                  "https://drive.google.com/file/d/1HtLGW0eir4uzQfMvZcjAihMJU3gx_BRC/view?usp=sharing"
+                  "https://drive.google.com/file/d/1PYvNrSu4nxkNW-VvsTM1Uz60h0rlriLv/view?usp=sharing"
                 );
               }}
             >
