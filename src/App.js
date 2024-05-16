@@ -4,9 +4,10 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 import Configure from "./components/Configure";
 import Counter from "./components/Counter";
+import Instruction from "./components/Instruction";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,10 @@ function App() {
     {
       path: "configure",
       element: <Configure />,
+    },
+    {
+      path: "instruction",
+      element: <Instruction />,
     },
   ]);
   return <RouterProvider router={router} />;

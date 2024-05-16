@@ -1,0 +1,85 @@
+.instruction-container {
+  .instruction-body {
+    width: 90%;
+    margin: auto;
+    padding: 0 94px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    .horizontal-line {
+      border: 1px solid #c3c3cb;
+      width: 100%;
+      margin: 31px 0;
+    }
+  }
+  .instruction-header {
+    display: flex;
+    margin-bottom: 31px;
+    .title-conatiner {
+      font-family: Lato;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 36px;
+      text-align: left;
+      .link-text {
+        color: #6271dd;
+      }
+    }
+  }
+  .candidate-instruction {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    border-radius: 4px;
+
+    background: #feecc9;
+    padding: 12px;
+    box-sizing: border-box;
+    .title {
+      img {
+        vertical-align: sub;
+      }
+    }
+
+    .instruction-text {
+      display: inline-block;
+      margin-left: 12px;
+      margin-bottom: 15px;
+    }
+  }
+  .download-link-container {
+    text-align: center;
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    .links-container {
+      margin-top: 26px;
+      img {
+        vertical-align: middle;
+        margin-left: 5px;
+        height: 20px;
+        width: 20px;
+      }
+      .primary,
+      .secondary {
+        margin: 0 12px;
+        box-sizing: border-box;
+        padding: 12px 20px 12px 20px;
+        border-radius: 4px;
+      }
+      .primary {
+        background: #6271dd;
+        color: #ffffff;
+        border: 1px solid white;
+      }
+      .secondary {
+        background: #ffffff;
+        border: 1px solid #6271dd;
+        color: #6271dd;
+      }
+    }
+  }
+}

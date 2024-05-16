@@ -1,0 +1,14 @@
+.header-container {
+  width: 100%;
+  height: 60px;
+  background: #10112e;
+  padding: 12px 19px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+  img {
+    margin-right: 20px;
+  }
+}
