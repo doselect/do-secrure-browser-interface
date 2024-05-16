@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
 import Warning from "../../assets/icon/Warning.svg";
@@ -15,6 +16,11 @@ import {
 import "./instruction.scss";
 
 const Instruction = () => {
+  const location = useLocation();
+  // Extract query parameters from the location object
+  const queryParams = new URLSearchParams(location.search);
+  // Get the value of a specific query parameter
+  const testUrl = queryParams.get("dsUrl");
   return (
     <div className="instruction-container">
       <Header />
@@ -45,11 +51,23 @@ const Instruction = () => {
         <div className="download-link-container">
           <div className="title">{DOWNLOAD_LINK_TEXT}</div>
           <div className="links-container">
-            <button className="test-link primary">
+            <button
+              className="test-link primary"
+              onClick={() => {
+                window.open(`DoselectSB://?dsUrl=${testUrl}`);
+              }}
+            >
               {PROCEED_TEST_TEXT}
               <img src={Proceed} alt="proceed" />
             </button>
-            <button className="download secondary">
+            <button
+              className="download secondary"
+              onClick={() => {
+                window.open(
+                  "https://drive.google.com/file/d/1HtLGW0eir4uzQfMvZcjAihMJU3gx_BRC/view?usp=sharing"
+                );
+              }}
+            >
               {DOWNLOAD_BROWSER_TEXT}
               <img src={FileDownload} alt="download" />
             </button>
