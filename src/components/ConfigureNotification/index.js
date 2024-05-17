@@ -12,7 +12,7 @@ const ConfigureNotification = () => {
         cmd,
       };
       exec(CONFIGURE, payload, res => {
-        let filteredArr = res.result.split("\r");
+        // let filteredArr = res.result.split("\r");
         // Remove all unwanted elements
         console.log(res.result);
       });
