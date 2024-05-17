@@ -20,6 +20,7 @@ const ConfigureDisplay = () => {
 
         // Remove leading and trailing newlines from each string
         filteredArr = filteredArr.map(item => item.trim());
+        filteredArr.shift();
         setDisplayInfo(filteredArr);
       });
     }
