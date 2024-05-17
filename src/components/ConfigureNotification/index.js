@@ -6,7 +6,7 @@ const ConfigureNotification = () => {
   const [notificationInfo, setNotificationInfo] = useState("");
   useEffect(() => {
     if (window.electron) {
-      const cmd = `for /f "tokens=3" %A in ('reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v LockScreenToastEnabled 2^>nul') do @echo %A`;
+      const cmd = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
       const { exec } = window.electron;
       const payload = {
         cmd,
@@ -18,6 +18,8 @@ const ConfigureNotification = () => {
         if (filteredArr.includes("0x0")) {
           setNotificationInfo("Notifications are OFF");
         } else if (filteredArr.includes("0x1")) {
+          setNotificationInfo("Notifications are ON");
+        } else {
           setNotificationInfo("Notifications are ON");
         }
         console.log(res.result);
