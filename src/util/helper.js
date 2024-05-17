@@ -12,12 +12,7 @@ const environmentConfig = {
   ],
 };
 
-export const blockedShortcuts = [
-  // Windows Key Combinations
-  "Super", // Block single press of the Windows key
-  "Super+Any", // Block any combination with the Windows key
-  // Add more shortcuts as needed
-];
+export const blockedShortcuts = ["Alt+Space"];
 
 export function buildGetRunningProcessWinCommand(
   config = environmentConfig.redtrictedApps

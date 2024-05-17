@@ -13,3 +13,5 @@ export const DOWNLOAD_LINK_TEXT =
 export const PROCEED_TEST_TEXT = "Yes, Proceed to Test";
 
 export const DOWNLOAD_BROWSER_TEXT = "No, Download Secure Browser";
+export const CONFIGURE_TITLE =
+  "Please fix these issues to continue to assessment";

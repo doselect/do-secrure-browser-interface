@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { CONFIGURE, CONFIGURE_SHORTCUT_KEYS } from "../../util/constant";
+import {
+  CONFIGURE,
+  CONFIGURE_SHORTCUT_KEYS,
+  CONFIGURE_TITLE,
+} from "../../util/constant";
 import {
   buildGetRunningProcessWinCommand,
   buildKillRunningProcessWinCommand,
   blockedShortcuts,
 } from "../../util/helper";
+import candidateEnv2 from "../../assets/icon/candidateEnv2.svg";
+import Footer from "../Footer";
+import Header from "../Header";
+import "./configure.scss";
+import ConfigureApplication from "../ConfigureApplication";
+
 const Configure = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
   const [checkAgain, setCheckAgain] = useState(false);
@@ -86,7 +96,8 @@ const Configure = () => {
 
   return (
     <>
-      <div>Checking environment......</div>
+      <Header />
+      {/* <div>Checking environment......</div>
       <div>
         <h2>Running Processes:</h2>
         <ul>
@@ -95,7 +106,19 @@ const Configure = () => {
           ))}
         </ul>
         <button onClick={startTest}>start test</button>
+      </div> */}
+      <div className="configure-container">
+        <div className="title">{CONFIGURE_TITLE}</div>
+        <div className="configure-img-container">
+          <div className="configure">
+            <ConfigureApplication />
+          </div>
+          <div>
+            <img src={candidateEnv2} alt="candidateEnv2" />
+          </div>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };
