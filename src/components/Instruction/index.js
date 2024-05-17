@@ -54,7 +54,7 @@ const Instruction = () => {
             <button
               className="test-link primary"
               onClick={() => {
-                window.open(`DoselectSB://?dsUrl=${testUrl}`);
+                window.open(`Doselect://?dsUrl=${testUrl}`);
               }}
             >
               {PROCEED_TEST_TEXT}

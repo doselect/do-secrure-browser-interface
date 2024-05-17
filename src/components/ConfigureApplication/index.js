@@ -12,7 +12,11 @@ const ConfigureApplication = () => {
         cmd: buildGetRunningProcessWinCommand(),
       };
       exec(CONFIGURE, payload, res => {
-        setRunningProcess(new Set(res.result.split("\r")));
+        const newData = new Set(res.result.split("\r"));
+        if (newData.has("Name")) {
+          newData.delete("Name");
+        }
+        setRunningProcess(newData);
       });
     }
   }, []);
@@ -20,12 +24,12 @@ const ConfigureApplication = () => {
     <div className="configure-app-container">
       <div className="title">
         <li>Following applications should be closed to start the test</li>
-        <ul>
-          {Array.from(runningProcess).map(process => (
-            <li key={process}>{process}</li>
-          ))}
-        </ul>
       </div>
+      <ul className="app-list">
+        {Array.from(runningProcess).map(process => (
+          <li key={process}>{process}</li>
+        ))}
+      </ul>
     </div>
   );
 };
