@@ -15,9 +15,9 @@ const ConfigureNotification = () => {
         let filteredArr = res.result.split("\r");
         // Remove all unwanted elements
         console.log(filteredArr);
-        if (res.result === "0x0") {
+        if (filteredArr.includes("0x0")) {
           setNotificationInfo("Notifications are OFF");
-        } else if (res.result === "0x1") {
+        } else if (filteredArr.includes("0x1")) {
           setNotificationInfo("Notifications are ON");
         }
         console.log(res.result);
