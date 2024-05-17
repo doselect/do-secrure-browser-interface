@@ -13,9 +13,11 @@ const ConfigureApplication = () => {
       };
       exec(CONFIGURE, payload, res => {
         const newData = new Set(res.result.split("\r"));
+        console.log(newData, "before");
         if (newData.has("Name")) {
           newData.delete("Name");
         }
+        console.log(newData, "after");
         setRunningProcess(newData);
       });
     }
