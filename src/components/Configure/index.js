@@ -14,6 +14,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 import "./configure.scss";
 import ConfigureApplication from "../ConfigureApplication";
+import ConfigureDisplay from "../ConfigureDisplay";
 
 const Configure = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
@@ -112,6 +113,7 @@ const Configure = () => {
         <div className="configure-img-container">
           <div className="configure">
             <ConfigureApplication />
+            <ConfigureDisplay />
           </div>
           <div>
             <img src={candidateEnv2} alt="candidateEnv2" />
