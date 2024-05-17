@@ -42,11 +42,11 @@ const ConfigureNotification = () => {
         if (toastEnabledValue) {
           console.log(`The value of ToastEnabled is ${toastEnabledValue}`);
           if (toastEnabledValue === "0x0") {
-            console.log("Toast notifications are disabled.");
+            setNotificationInfo("Toast notifications are disabled.");
           } else if (toastEnabledValue === "0x1") {
-            console.log("Toast notifications are enabled.");
+            setNotificationInfo("Toast notifications are enabled.");
           } else {
-            console.log(
+            setNotificationInfo(
               `The value of ToastEnabled is ${toastEnabledValue}, which is unexpected.`
             );
           }
