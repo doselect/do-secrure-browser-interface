@@ -12,6 +12,7 @@ const ConfigureApplication = () => {
         cmd: buildGetRunningProcessWinCommand(),
       };
       exec(CONFIGURE, payload, res => {
+        console.log(res.result, "manish");
         const newData = new Set(res.result.split("\r"));
         console.log(newData, "before");
         if (newData.has("Name")) {
