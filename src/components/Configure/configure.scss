@@ -18,6 +18,16 @@
     line-height: 36px;
     text-align: left;
   }
+  .primary {
+    background: #6271dd;
+    color: #ffffff;
+    border: 1px solid white;
+    margin: 0 12px;
+    box-sizing: border-box;
+    padding: 12px 20px 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   .configure-img-container {
     align-items: center;
     display: flex;
