@@ -3,7 +3,7 @@ import { CONFIGURE } from "../../util/constant";
 import "./configureDisplay.scss";
 
 const ConfigureDisplay = () => {
-  const [displayInfo, setDisplayInfo] = useState();
+  const [displayInfo, setDisplayInfo] = useState([]);
   useEffect(() => {
     if (window.electron) {
       const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
