@@ -18,14 +18,14 @@ const ConfigureNotification = () => {
           );
           return;
         }
-        // let arr = res.result.split("\r");
-        const arr = [
-          "",
-          "\nHKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
-          "\n    ToastEnabled    REG_DWORD    0x1",
-          "\n",
-          "\n",
-        ];
+        let arr = res.result.split("\r");
+        // const arr = [
+        //   "",
+        //   "\nHKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+        //   "\n    ToastEnabled    REG_DWORD    0x1",
+        //   "\n",
+        //   "\n",
+        // ];
 
         let toastEnabledValue = null;
 
