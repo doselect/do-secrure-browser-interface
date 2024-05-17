@@ -15,6 +15,7 @@ import Header from "../Header";
 import "./configure.scss";
 import ConfigureApplication from "../ConfigureApplication";
 import ConfigureDisplay from "../ConfigureDisplay";
+import ConfigureNotification from "../ConfigureNotification";
 
 const Configure = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
@@ -114,6 +115,7 @@ const Configure = () => {
           <div className="configure">
             <ConfigureApplication />
             <ConfigureDisplay />
+            <ConfigureNotification />
           </div>
           <div>
             <img src={candidateEnv2} alt="candidateEnv2" />
