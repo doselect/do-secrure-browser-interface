@@ -15,8 +15,9 @@ const ConfigureApplication = () => {
         console.log(res.result, "manish");
         const newData = new Set(res.result.split("\r"));
         console.log(newData, "before");
-        if (newData.has("Name")) {
-          newData.delete("Name");
+        if (newData.has('"Name"')) {
+          newData.delete('"Name"');
+          newData.delete("/n");
         }
         console.log(newData, "after");
         setRunningProcess(newData);
