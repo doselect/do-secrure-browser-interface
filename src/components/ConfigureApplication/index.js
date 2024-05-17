@@ -17,7 +17,7 @@ const ConfigureApplication = () => {
         console.log(newData, "before");
         if (newData.has('"Name"')) {
           newData.delete('"Name"');
-          newData.delete("/n");
+          newData.delete("\n");
         }
         console.log(newData, "after");
         setRunningProcess(newData);
