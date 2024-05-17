@@ -4,7 +4,7 @@ const environmentConfig = {
     "chrome",
     "msedge",
     "firefox",
-    "teams",
+    "ms-teams",
     "zoom",
     "google-meet",
     "slack",
@@ -12,7 +12,7 @@ const environmentConfig = {
   ],
 };
 
-export const blockedShortcuts = ["Alt+Space"];
+export const blockedShortcuts = ["Alt+Space", "Ctrl+Shift+Esc"];
 
 export function buildGetRunningProcessWinCommand(
   config = environmentConfig.redtrictedApps
