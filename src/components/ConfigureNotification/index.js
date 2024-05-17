@@ -16,7 +16,7 @@ const ConfigureNotification = () => {
           setNotificationInfo(
             "THERE'S SOMETHING ISSUE WITH RUNNING THE COMMAND"
           );
-          // return;
+          return;
         }
         // let arr = res.result.split("\r");
         const arr = [
