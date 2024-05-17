@@ -12,8 +12,9 @@ const ConfigureNotification = () => {
         cmd,
       };
       exec(CONFIGURE, payload, res => {
-        // let filteredArr = res.result.split("\r");
+        let filteredArr = res.result.split("\r");
         // Remove all unwanted elements
+        console.log(filteredArr);
         if (res.result === "0x0") {
           setNotificationInfo("Notifications are OFF");
         } else if (res.result === "0x1") {
