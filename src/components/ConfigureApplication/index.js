@@ -10,8 +10,6 @@ const ConfigureApplication = () => {
       const { exec } = window.electron;
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
-        isRecurring: true,
-        frequency: 5000,
       };
       exec(CONFIGURE, payload, res => {
         console.log(res.result, "manish");
