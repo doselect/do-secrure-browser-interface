@@ -25,8 +25,6 @@ const Configure = () => {
       const { exec } = window.electron;
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
-        isRecurring: true,
-        frequency: 5000,
       };
       exec(CONFIGURE, payload, res => {
         setRunningProcess(new Set(res.result.split("\r")));
@@ -48,8 +46,6 @@ const Configure = () => {
       const { exec } = window.electron;
       const payload = {
         cmd,
-        isRecurring: true,
-        frequency: 5000,
       };
       exec(CONFIGURE, payload, res => {
         console.log("---------------");
@@ -79,8 +75,6 @@ const Configure = () => {
       const { exec } = window.electron;
       const payload = {
         cmd: buildKillRunningProcessWinCommand(),
-        isRecurring: false,
-        frequency: 5000, // can any number , but of no use
       };
       exec(CONFIGURE, payload, res => {
         console.log(res);
