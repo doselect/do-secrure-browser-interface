@@ -15,7 +15,7 @@ const ConfigureApplication = () => {
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
         isRecurring: true,
-        frequency: 10000,
+        frequency: 15000,
         event: "CONFIGURE_APPS",
       };
       exec(CONFIGURE, payload, res => {
