@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  CONFIGURE,
-  CONFIGURE_SHORTCUT_KEYS,
-  CONFIGURE_TITLE,
-} from "../../util/constant";
-import {
-  buildGetRunningProcessWinCommand,
-  buildKillRunningProcessWinCommand,
-  blockedShortcuts,
-} from "../../util/helper";
+import React, { useEffect } from "react";
+import { CONFIGURE_SHORTCUT_KEYS, CONFIGURE_TITLE } from "../../util/constant";
+import { blockedShortcuts } from "../../util/helper";
 import candidateEnv2 from "../../assets/icon/candidateEnv2.svg";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -18,19 +10,7 @@ import ConfigureDisplay from "../ConfigureDisplay";
 import ConfigureNotification from "../ConfigureNotification";
 
 const Configure = () => {
-  const [runningProcess, setRunningProcess] = useState(new Set());
-  const [checkAgain, setCheckAgain] = useState(false);
   useEffect(() => {
-    if (window.electron) {
-      const { exec } = window.electron;
-      const payload = {
-        cmd: buildGetRunningProcessWinCommand(),
-      };
-      exec(CONFIGURE, payload, res => {
-        setRunningProcess(new Set(res.result.split("\r")));
-      });
-    }
-
     if (window.electron) {
       const { exec } = window.electron;
       const payload = {
@@ -38,18 +18,6 @@ const Configure = () => {
       };
       exec(CONFIGURE_SHORTCUT_KEYS, payload, res => {
         console.log(res);
-      });
-    }
-
-    if (window.electron) {
-      const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
-      const { exec } = window.electron;
-      const payload = {
-        cmd,
-      };
-      exec(CONFIGURE, payload, res => {
-        console.log("---------------");
-        console.log(res.result.split("\r"));
       });
     }
 
@@ -63,25 +31,7 @@ const Configure = () => {
         console.log(event);
       });
     }
-  }, [checkAgain]);
-
-  useEffect(() => {
-    console.log(runningProcess.size);
-    let candidateResponse = false;
-    if (runningProcess.size > 2) {
-      candidateResponse = window.confirm("some restricted process are running");
-    }
-    if (window.electron && candidateResponse) {
-      const { exec } = window.electron;
-      const payload = {
-        cmd: buildKillRunningProcessWinCommand(),
-      };
-      exec(CONFIGURE, payload, res => {
-        console.log(res);
-        setCheckAgain(prev => !prev);
-      });
-    }
-  }, [runningProcess, setCheckAgain]);
+  }, []);
 
   const startTest = () => {
     if (window.electron) {

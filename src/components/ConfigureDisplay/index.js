@@ -16,6 +16,7 @@ const ConfigureDisplay = () => {
       };
       exec(CONFIGURE, payload, res => {
         let filteredArr = res.result.split("\r");
+        console.log(filteredArr, "manish");
         // Remove all unwanted elements
         filteredArr = filteredArr.filter(
           item => item.trim() !== "" && !item.includes("------")
