@@ -10,7 +10,7 @@ const ConfigureDisplay = () => {
       const { exec } = window.electron;
       const payload = {
         cmd,
-        isRecurring: true,
+        isRecurring: false,
         frequency: 10000,
         event: "CONFIGURE_DISPLAY",
       };
