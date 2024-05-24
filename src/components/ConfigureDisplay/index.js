@@ -10,6 +10,9 @@ const ConfigureDisplay = () => {
       const { exec } = window.electron;
       const payload = {
         cmd,
+        isRecurring: true,
+        frequency: 10000,
+        event: "CONFIGURE_DISPLAY",
       };
       exec(CONFIGURE, payload, res => {
         let filteredArr = res.result.split("\r");
