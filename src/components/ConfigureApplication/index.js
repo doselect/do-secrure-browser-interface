@@ -14,8 +14,8 @@ const ConfigureApplication = () => {
       const { exec } = window.electron;
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
-        isRecurring: false,
-        frequency: 5000,
+        isRecurring: true,
+        frequency: 10000,
         event: "CONFIGURE_APPS",
       };
       exec(CONFIGURE, payload, res => {
