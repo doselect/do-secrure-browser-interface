@@ -15,7 +15,7 @@ const ConfigureApplication = () => {
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
         isRecurring: true,
-        frequency: 10000,
+        frequency: 7000,
         event: "CONFIGURE_APPS",
       };
       exec(CONFIGURE, payload, res => {
@@ -35,7 +35,7 @@ const ConfigureApplication = () => {
   useEffect(() => {
     console.log(runningProcess.size);
     let candidateResponse = false;
-    if (runningProcess.size > 2) {
+    if (runningProcess.size >= 1) {
       candidateResponse = window.confirm("some restricted process are running");
     }
     if (window.electron && candidateResponse) {
