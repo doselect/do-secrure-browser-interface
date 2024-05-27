@@ -64,7 +64,7 @@ const Instruction = () => {
               className="download secondary"
               onClick={() => {
                 window.open(
-                  "https://drive.google.com/file/d/1_vnv7TtmTflujnkCU-ox4kdIR1GBMM-w/view?usp=sharing"
+                  "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/doselect_secure_browser_setup_1.0.1.exe"
                 );
               }}
             >
