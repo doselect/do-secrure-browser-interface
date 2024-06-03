@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ErrorOutline from "../../assets/icon/ErrorOutline.svg";
 import { CONFIGURE } from "../../util/constant";
 import "./configureDisplay.scss";
 
@@ -32,11 +33,15 @@ const ConfigureDisplay = () => {
   return (
     <div className="configure-display-container">
       <div className="title">
-        <li>
-          <strong>External monitor detected </strong>- We have detected an
-          external monitor connected to the desktop app which is not allowed.
-          Please disconnect the second monitor to continue to the test.
-        </li>
+        <img src={ErrorOutline} />
+        <span className="info-desc-container">
+          <span className="info">Disconnect External Monitor </span>
+          <p className="description">
+            We have detected an external monitor connected to the desktop app
+            which is not allowed. Please disconnect the external monitor(s) to
+            continue to the assessment.
+          </p>
+        </span>
       </div>
       <ul className="display-info">
         {displayInfo.map(process => (

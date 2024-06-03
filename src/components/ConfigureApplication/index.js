@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ErrorOutline from "../../assets/icon/ErrorOutline.svg";
 import { CONFIGURE } from "../../util/constant";
 import {
   buildGetRunningProcessWinCommand,
@@ -52,7 +53,15 @@ const ConfigureApplication = () => {
   return (
     <div className="configure-app-container">
       <div className="title">
-        <li>Following applications should be closed to start the test</li>
+        <img src={ErrorOutline} />
+        <span className="info-desc-container">
+          <span className="info">Open Applications Detected </span>
+          <p className="description">
+            We've detected multiple open applications on your system. Please
+            save your work and click "Re-Verify" to proceed, or click the
+            checkbox for us to close them for you.
+          </p>
+        </span>
       </div>
       <ul className="app-list">
         {Array.from(runningProcess).map(process => (

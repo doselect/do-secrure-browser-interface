@@ -5,6 +5,20 @@
     font-weight: 700;
     line-height: 20px;
     text-align: left;
+    display: flex;
+    align-self: baseline;
+    img{
+      align-self: flex-start;
+    }
+    .info-desc-container {
+      margin-left: 20px;
+      .info {
+        color: red;
+      }
+      .description {
+        font-weight: 400;
+      }
+    }
   }
   .app-list {
     list-style: decimal;

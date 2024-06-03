@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ErrorOutline from "../../assets/icon/ErrorOutline.svg";
 import { CONFIGURE } from "../../util/constant";
 import "./configureNotification.scss";
 
@@ -64,10 +65,14 @@ const ConfigureNotification = () => {
   return (
     <div className="configure-notification-container">
       <div className="title">
-        <li>
-          Disable System Notifications - Interaction with external pop-ups can
-          lead to auto-submission of the assessment.
-        </li>
+        <img src={ErrorOutline} />
+        <span className="info-desc-container">
+          <span className="info">Disable System Notifications </span>
+          <p className="description">
+            Interaction with external pop-ups can lead to auto-submission of the
+            assessment.
+          </p>
+        </span>
       </div>
       <ul className="notification-info">{notificationInfo}</ul>
     </div>
