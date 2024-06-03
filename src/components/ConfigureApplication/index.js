@@ -66,6 +66,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
         if (newData.has('"Name"')) {
           newData.delete('"Name"');
           newData.delete("\n");
+          newData.delete("");
         }
         console.log(newData, "after");
         setRunningProcess(newData);
@@ -92,7 +93,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
   //   candidateResponse = window.confirm("some restricted process are running");
   // }
 
-  if (runningProcess.size <= 1 && runningProcess[0].length > 0) {
+  if (runningProcess.size <= 1) {
     console.log(runningProcess);
     return <></>;
   }
