@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CONFIGURE_SHORTCUT_KEYS, CONFIGURE_TITLE } from "../../util/constant";
 import { blockedShortcuts } from "../../util/helper";
 import candidateEnv2 from "../../assets/icon/candidateEnv2.svg";
@@ -10,6 +10,18 @@ import ConfigureDisplay from "../ConfigureDisplay";
 import ConfigureNotification from "../ConfigureNotification";
 
 const Configure = () => {
+  const [verify, setVerify] = useState(false);
+
+  const [checks, setChecks] = useState({
+    isNotificationEnable: true,
+    multiMonitorsPresent: true,
+    restrictedAppsRunning: true,
+  });
+
+  useEffect(() => {
+    setVerify(prev => !prev);
+  }, [checks]);
+
   useEffect(() => {
     if (window.electron) {
       const { exec } = window.electron;
@@ -40,7 +52,7 @@ const Configure = () => {
         console.log(res);
       });
 
-      sendMsgToElectron("STOP_KEYS", "abc.ahk", res => {
+      sendMsgToElectron("STOP_KEYS", {}, res => {
         console.log(res);
       });
     }
@@ -63,9 +75,9 @@ const Configure = () => {
         <div className="title">{CONFIGURE_TITLE}</div>
         <div className="configure-img-container">
           <div className="configure">
-            <ConfigureNotification />
-            <ConfigureApplication />
-            <ConfigureDisplay />
+            <ConfigureNotification reverify={verify} setChecks={setChecks} />
+            <ConfigureApplication reverify={verify} setChecks={setChecks} />
+            <ConfigureDisplay reverify={verify} setChecks={setChecks} />
           </div>
           <div>
             <img src={candidateEnv2} alt="candidateEnv2" />

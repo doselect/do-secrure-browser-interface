@@ -7,14 +7,26 @@ import {
 } from "../../util/helper";
 import "./configureApplication.scss";
 
-const ConfigureApplication = () => {
+const ConfigureApplication = ({ setChecks, reverify }) => {
   const [runningProcess, setRunningProcess] = useState(new Set());
-  const [checkAgain, setCheckAgain] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = event => {
     setChecked(event.target.checked);
   };
+
+  const killRunningProcess = () => {
+    if (window.electron && runningProcess.size >= 1 && checked) {
+      const { exec } = window.electron;
+      const payload = {
+        cmd: buildKillRunningProcessWinCommand(),
+      };
+      exec(CONFIGURE, payload, res => {
+        console.log(res);
+      });
+    }
+  };
+
   useEffect(() => {
     if (window.electron) {
       const { exec } = window.electron;
@@ -39,22 +51,29 @@ const ConfigureApplication = () => {
   }, []);
 
   useEffect(() => {
-    console.log(runningProcess.size);
-    let candidateResponse = false;
     if (runningProcess.size >= 1) {
-      candidateResponse = window.confirm("some restricted process are running");
-    }
-    if (window.electron && candidateResponse) {
-      const { exec } = window.electron;
-      const payload = {
-        cmd: buildKillRunningProcessWinCommand(),
-      };
-      exec(CONFIGURE, payload, res => {
-        console.log(res);
-        setCheckAgain(prev => !prev);
-      });
+      setChecks(prev => ({
+        ...prev,
+        restrictedAppsRunning: true,
+      }));
+      killRunningProcess();
+    } else {
+      setChecks(prev => ({
+        ...prev,
+        restrictedAppsRunning: false,
+      }));
     }
   }, [runningProcess]);
+
+  // if (runningProcess.size >= 1) {
+  //   candidateResponse = window.confirm("some restricted process are running");
+  // }
+
+  if (runningProcess.size < 1) {
+    console.log(runningProcess);
+    return <></>;
+  }
+
   return (
     <div className="configure-app-container">
       <div className="title">
