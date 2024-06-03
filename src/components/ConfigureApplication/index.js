@@ -79,11 +79,11 @@ const ConfigureApplication = () => {
           </div>
         </span>
       </div>
-      <ul className="app-list">
+      {/* <ul className="app-list">
         {Array.from(runningProcess).map(process => (
           <li key={process}>{process}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
