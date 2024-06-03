@@ -74,7 +74,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
   }, [reverify]);
 
   useEffect(() => {
-    if (runningProcess.size > 1) {
+    if (runningProcess.size >= 1) {
       setChecks(prev => ({
         ...prev,
         restrictedAppsRunning: true,
