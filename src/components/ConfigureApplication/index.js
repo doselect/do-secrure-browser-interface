@@ -79,6 +79,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
         ...prev,
         restrictedAppsRunning: true,
       }));
+      console.log(checked, "paras");
       killRunningProcess();
     } else {
       setChecks(prev => ({
