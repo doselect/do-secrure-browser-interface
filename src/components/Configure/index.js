@@ -18,9 +18,7 @@ const Configure = () => {
     restrictedAppsRunning: true,
   });
 
-  useEffect(() => {
-    setVerify(prev => !prev);
-  }, [checks]);
+  useEffect(() => {}, [checks]);
 
   useEffect(() => {
     if (window.electron) {
@@ -46,16 +44,18 @@ const Configure = () => {
   }, []);
 
   const startTest = () => {
-    if (window.electron) {
-      const { sendMsgToElectron } = window.electron;
-      sendMsgToElectron("START_TEST", {}, res => {
-        console.log(res);
-      });
+    setVerify(prev => !prev);
 
-      sendMsgToElectron("STOP_KEYS", {}, res => {
-        console.log(res);
-      });
-    }
+    // if (window.electron) {
+    //   const { sendMsgToElectron } = window.electron;
+    //   sendMsgToElectron("START_TEST", {}, res => {
+    //     console.log(res);
+    //   });
+
+    //   sendMsgToElectron("STOP_KEYS", {}, res => {
+    //     console.log(res);
+    //   });
+    // }
   };
 
   return (
