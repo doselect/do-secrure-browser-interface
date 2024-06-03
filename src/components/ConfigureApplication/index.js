@@ -22,7 +22,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
         cmd: buildKillRunningProcessWinCommand(),
       };
       exec(CONFIGURE, payload, res => {
-        console.log(res);
+        setRunningProcess(new Set());
       });
     }
   };
