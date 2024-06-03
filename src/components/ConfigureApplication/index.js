@@ -16,7 +16,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
   };
 
   const killRunningProcess = () => {
-    if (window.electron && runningProcess.size > 1 && checked) {
+    if (window.electron && runningProcess.size >= 1 && checked) {
       const { exec } = window.electron;
       const payload = {
         cmd: buildKillRunningProcessWinCommand(),
