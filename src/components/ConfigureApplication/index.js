@@ -23,6 +23,10 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
       };
       exec(CONFIGURE, payload, res => {
         setRunningProcess(new Set());
+        setChecks(prev => ({
+          ...prev,
+          restrictedAppsRunning: false,
+        }));
       });
     }
   };

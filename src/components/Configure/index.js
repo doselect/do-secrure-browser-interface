@@ -51,16 +51,16 @@ const Configure = () => {
   const startTest = () => {
     setVerify(prev => !prev);
 
-    // if (window.electron) {
-    //   const { sendMsgToElectron } = window.electron;
-    //   sendMsgToElectron("START_TEST", {}, res => {
-    //     console.log(res);
-    //   });
+    if (window.electron) {
+      const { sendMsgToElectron } = window.electron;
+      sendMsgToElectron("START_TEST", {}, res => {
+        console.log(res);
+      });
 
-    //   sendMsgToElectron("STOP_KEYS", {}, res => {
-    //     console.log(res);
-    //   });
-    // }
+      sendMsgToElectron("STOP_KEYS", {}, res => {
+        console.log(res);
+      });
+    }
   };
 
   return (
