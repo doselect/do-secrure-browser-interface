@@ -93,7 +93,7 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
   //   candidateResponse = window.confirm("some restricted process are running");
   // }
 
-  if (runningProcess.size <= 1) {
+  if (runningProcess.size < 1) {
     console.log(runningProcess);
     return <></>;
   }
