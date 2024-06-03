@@ -4,7 +4,7 @@ import { CONFIGURE } from "../../util/constant";
 import "./configureNotification.scss";
 
 const ConfigureNotification = () => {
-  const [notificationInfo, setNotificationInfo] = useState("");
+  const [isNotificationEnable, setNotificationEnable] = useState(true);
   useEffect(() => {
     if (window.electron) {
       const cmd = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
@@ -14,9 +14,7 @@ const ConfigureNotification = () => {
       };
       exec(CONFIGURE, payload, res => {
         if (res.error) {
-          setNotificationInfo(
-            "THERE'S SOMETHING ISSUE WITH RUNNING THE COMMAND"
-          );
+          setNotificationEnable(true);
           return;
         }
         let arr = res.result.split("\r");
@@ -43,13 +41,11 @@ const ConfigureNotification = () => {
         if (toastEnabledValue) {
           console.log(`The value of ToastEnabled is ${toastEnabledValue}`);
           if (toastEnabledValue === "0x0") {
-            setNotificationInfo("Toast notifications are disabled.");
+            setNotificationEnable(false);
           } else if (toastEnabledValue === "0x1") {
-            setNotificationInfo("Toast notifications are enabled.");
+            setNotificationEnable(true);
           } else {
-            setNotificationInfo(
-              `The value of ToastEnabled is ${toastEnabledValue}, which is unexpected.`
-            );
+            setNotificationEnable(true);
           }
         } else {
           console.log("The value of ToastEnabled could not be found.");
@@ -62,6 +58,11 @@ const ConfigureNotification = () => {
       });
     }
   }, []);
+
+  if (!isNotificationEnable) {
+    return <></>;
+  }
+
   return (
     <div className="configure-notification-container">
       <div className="title">
@@ -74,7 +75,7 @@ const ConfigureNotification = () => {
           </p>
         </span>
       </div>
-      <ul className="notification-info">{notificationInfo}</ul>
+      {/* <ul className="notification-info">{notificationInfo}</ul> */}
     </div>
   );
 };

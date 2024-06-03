@@ -63,9 +63,9 @@ const Configure = () => {
         <div className="title">{CONFIGURE_TITLE}</div>
         <div className="configure-img-container">
           <div className="configure">
+            <ConfigureNotification />
             <ConfigureApplication />
             <ConfigureDisplay />
-            <ConfigureNotification />
           </div>
           <div>
             <img src={candidateEnv2} alt="candidateEnv2" />

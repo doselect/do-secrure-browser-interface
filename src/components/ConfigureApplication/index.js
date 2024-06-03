@@ -10,6 +10,11 @@ import "./configureApplication.scss";
 const ConfigureApplication = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
   const [checkAgain, setCheckAgain] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = event => {
+    setChecked(event.target.checked);
+  };
   useEffect(() => {
     if (window.electron) {
       const { exec } = window.electron;
@@ -61,6 +66,17 @@ const ConfigureApplication = () => {
             save your work and click "Re-Verify" to proceed, or click the
             checkbox for us to close them for you.
           </p>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={handleCheckboxChange}
+              />
+              By checking this box, I agree to allow Doselect to close all
+              running applications.
+            </label>
+          </div>
         </span>
       </div>
       <ul className="app-list">
