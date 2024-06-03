@@ -58,6 +58,7 @@ const ConfigureDisplay = ({ setChecks, reverify }) => {
   }, [reverify]);
 
   useEffect(() => {
+    console.log(displayInfo, "paras");
     if (displayInfo.size > 1) {
       setChecks(prev => ({
         ...prev,
