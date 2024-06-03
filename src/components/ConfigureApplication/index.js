@@ -66,7 +66,6 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
         if (newData.has('"Name"')) {
           newData.delete('"Name"');
           newData.delete("\n");
-          newData.delete("");
         }
         console.log(newData, "after");
         setRunningProcess(newData);
