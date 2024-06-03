@@ -59,7 +59,7 @@ const ConfigureDisplay = ({ setChecks, reverify }) => {
 
   useEffect(() => {
     console.log(displayInfo, "paras");
-    if (displayInfo.size > 1) {
+    if (displayInfo.length > 1) {
       setChecks(prev => ({
         ...prev,
         multiMonitorsPresent: true,
@@ -72,7 +72,7 @@ const ConfigureDisplay = ({ setChecks, reverify }) => {
     }
   }, [displayInfo]);
 
-  if (displayInfo.size <= 1) {
+  if (displayInfo.length <= 1) {
     return <></>;
   }
   return (
