@@ -3,7 +3,7 @@ import ErrorOutline from "../../assets/icon/ErrorOutline.svg";
 import { CONFIGURE } from "../../util/constant";
 import "./configureDisplay.scss";
 
-const ConfigureDisplay = () => {
+const ConfigureDisplay = ({ setChecks, reverify }) => {
   const [displayInfo, setDisplayInfo] = useState([]);
   useEffect(() => {
     if (window.electron) {
@@ -30,6 +30,50 @@ const ConfigureDisplay = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (window.electron) {
+      const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
+      const { exec } = window.electron;
+      const payload = {
+        cmd,
+        isRecurring: false,
+        frequency: 10000,
+        event: "CONFIGURE_DISPLAY",
+      };
+      exec(CONFIGURE, payload, res => {
+        let filteredArr = res.result.split("\r");
+        console.log(filteredArr, "manish");
+        // Remove all unwanted elements
+        filteredArr = filteredArr.filter(
+          item => item.trim() !== "" && !item.includes("------")
+        );
+
+        // Remove leading and trailing newlines from each string
+        filteredArr = filteredArr.map(item => item.trim());
+        filteredArr.shift();
+        setDisplayInfo(filteredArr);
+      });
+    }
+  }, [reverify]);
+
+  useEffect(() => {
+    if (displayInfo.size > 1) {
+      setChecks(prev => ({
+        ...prev,
+        multiMonitorsPresent: true,
+      }));
+    } else {
+      setChecks(prev => ({
+        ...prev,
+        multiMonitorsPresent: false,
+      }));
+    }
+  }, [displayInfo]);
+
+  if (displayInfo.size <= 1) {
+    return <></>;
+  }
   return (
     <div className="configure-display-container">
       <div className="title">
