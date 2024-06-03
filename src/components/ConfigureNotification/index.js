@@ -59,10 +59,6 @@ const ConfigureNotification = () => {
     }
   }, []);
 
-  if (!isNotificationEnable) {
-    return <></>;
-  }
-
   return (
     <div className="configure-notification-container">
       <div className="title">
