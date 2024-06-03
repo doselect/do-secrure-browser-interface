@@ -11,12 +11,19 @@ import ConfigureNotification from "../ConfigureNotification";
 
 const Configure = () => {
   const [verify, setVerify] = useState(false);
+  const [text, setText] = useState("Re-Verify");
 
   const [checks, setChecks] = useState({
     isNotificationEnable: true,
     multiMonitorsPresent: true,
     restrictedAppsRunning: true,
   });
+
+  useEffect(() => {
+    if (!checks.multiMonitorsPresent && !checks.restrictedAppsRunning) {
+      setText("Proceed");
+    }
+  }, [checks]);
 
   useEffect(() => {
     if (window.electron) {
@@ -82,7 +89,7 @@ const Configure = () => {
           </div>
         </div>
         <button className="start-test primary" onClick={startTest}>
-          Start test
+          {text}
         </button>
       </div>
       <Footer />
