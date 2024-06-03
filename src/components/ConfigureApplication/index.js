@@ -51,6 +51,29 @@ const ConfigureApplication = ({ setChecks, reverify }) => {
   }, []);
 
   useEffect(() => {
+    if (window.electron) {
+      const { exec } = window.electron;
+      const payload = {
+        cmd: buildGetRunningProcessWinCommand(),
+        isRecurring: false,
+        frequency: 7000,
+        event: "CONFIGURE_APPS",
+      };
+      exec(CONFIGURE, payload, res => {
+        console.log(res.result, "manish");
+        const newData = new Set(res.result.split("\r"));
+        console.log(newData, "before");
+        if (newData.has('"Name"')) {
+          newData.delete('"Name"');
+          newData.delete("\n");
+        }
+        console.log(newData, "after");
+        setRunningProcess(newData);
+      });
+    }
+  }, [reverify]);
+
+  useEffect(() => {
     if (runningProcess.size >= 1) {
       setChecks(prev => ({
         ...prev,

@@ -18,8 +18,6 @@ const Configure = () => {
     restrictedAppsRunning: true,
   });
 
-  useEffect(() => {}, [checks]);
-
   useEffect(() => {
     if (window.electron) {
       const { exec } = window.electron;
