@@ -65,7 +65,8 @@ export function parseSystemNotificationResult(data) {
       // Split the item by spaces and get the last part which is the value
       const parts = item.trim().split(/\s+/);
       toastEnabledValue = parts[parts.length - 1];
-      break;
+      return toastEnabledValue;
     }
   }
+  return null;
 }
