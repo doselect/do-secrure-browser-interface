@@ -99,7 +99,7 @@ const Configure = () => {
           return;
         }
         const toastEnabledValue = parseSystemNotificationResult(res.result);
-
+        console.log(toastEnabledValue, "paras");
         if (toastEnabledValue) {
           console.log(`The value of ToastEnabled is ${toastEnabledValue}`);
           if (toastEnabledValue === "0x0") {
