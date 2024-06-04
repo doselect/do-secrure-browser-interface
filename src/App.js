@@ -5,8 +5,7 @@ import {
   Link,
 } from "react-router-dom";
 import "./App.scss";
-import Configure from "./components/Configure";
-import Counter from "./components/Counter";
+import Configure from "./components/Configure/Configure";
 import Instruction from "./components/Instruction";
 
 function App() {
