@@ -14,18 +14,7 @@ import {
   PROCEED_TEST_TEXT,
 } from "../../util/constant";
 import "./instruction.scss";
-const LoaderComponent = () => {
-  return (
-    <div className="loader-container">
-      <div className="spinner">
-        {[...Array(8)].map((_, index) => (
-          <div key={index} className={`dot dot-${index + 1}`}></div>
-        ))}
-      </div>
-      <p>Checking Device Compatibility</p>
-    </div>
-  );
-};
+import LoaderComponent from "../Loader";
 
 const Instruction = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +52,7 @@ const Instruction = () => {
     <div className="instruction-container">
       <Header />
       {isLoading ? (
-        <LoaderComponent />
+        <LoaderComponent title="" subText="Checking Device Compatibility" />
       ) : (
         <div className="instruction-body">
           <div className="instruction-header">

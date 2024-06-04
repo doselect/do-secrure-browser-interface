@@ -13,6 +13,7 @@ import candidateEnv2 from "../../assets/icon/candidateEnv2.svg";
 import Footer from "../Footer";
 import Header from "../Header";
 import "./configure.scss";
+import PretestConfigure from "../PretestConfigure";
 
 const Configure = () => {
   const [systemChecks, setSystemChecks] = useState({
@@ -171,6 +172,12 @@ const Configure = () => {
   console.log(displayInfo);
   console.log(runningProcess);
   console.log("-----------------------");
+  if (
+    !systemChecks.multiMonitorsPresent &&
+    !systemChecks.restrictedAppsRunning
+  ) {
+    return <PretestConfigure />;
+  }
 
   return (
     <>
