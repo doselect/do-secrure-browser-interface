@@ -135,6 +135,12 @@ const Configure = () => {
   };
 
   const startTest = () => {
+    setSystemChecks({
+      isNotificationEnable: null,
+      multiMonitorsPresent: null,
+      restrictedAppsRunning: null,
+    });
+
     setReverify(prev => !prev);
   };
 
