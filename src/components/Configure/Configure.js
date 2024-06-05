@@ -15,11 +15,15 @@ import Header from "../Header";
 import "./configure.scss";
 import PretestConfigure from "../PretestConfigure";
 
+// null means we dont know yet
+// true means yes condition fullfill
+// false means checks failed
+
 const Configure = () => {
   const [systemChecks, setSystemChecks] = useState({
-    isNotificationEnable: true,
-    multiMonitorsPresent: true,
-    restrictedAppsRunning: true,
+    isNotificationEnable: null,
+    multiMonitorsPresent: null,
+    restrictedAppsRunning: null,
   });
 
   const [checked, setChecked] = useState(false);
@@ -46,7 +50,13 @@ const Configure = () => {
       exec(CONFIGURE, payload, res => {
         console.log(res.result, "manish");
         const newData = parseGetallProceessResult(res.result);
+
         setRunningProcess(newData);
+
+        setSystemChecks(prev => ({
+          ...prev,
+          restrictedAppsRunning: newData.length >= 1 ? true : false,
+        }));
       });
     }
   };
@@ -148,31 +158,32 @@ const Configure = () => {
     } else {
       setSystemChecks(prev => ({
         ...prev,
-        restrictedAppsRunning: false,
+        restrictedAppsRunning:
+          prev.restrictedAppsRunning === null ? null : false,
       }));
     }
   }, [runningProcess]);
 
   useEffect(() => {
     console.log(displayInfo, "paras");
-    if (displayInfo.length > 1) {
+    if (displayInfo.length === 1) {
       setSystemChecks(prev => ({
         ...prev,
-        multiMonitorsPresent: true,
+        multiMonitorsPresent: false,
       }));
     } else {
       setSystemChecks(prev => ({
         ...prev,
-        multiMonitorsPresent: false,
+        multiMonitorsPresent: true,
       }));
     }
   }, [displayInfo]);
 
   if (
-    !systemChecks.multiMonitorsPresent &&
-    !systemChecks.restrictedAppsRunning
+    systemChecks.multiMonitorsPresent === false &&
+    systemChecks.restrictedAppsRunning === false
   ) {
-    // return <PretestConfigure />;
+    return <PretestConfigure />;
   }
 
   return (
