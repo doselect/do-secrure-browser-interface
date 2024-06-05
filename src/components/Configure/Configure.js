@@ -155,15 +155,10 @@ const Configure = () => {
 
   useEffect(() => {
     console.log(displayInfo, "paras");
-    if (displayInfo.length > 1) {
+    if (displayInfo.length <= 1) {
       setSystemChecks(prev => ({
         ...prev,
         multiMonitorsPresent: true,
-      }));
-    } else {
-      setSystemChecks(prev => ({
-        ...prev,
-        multiMonitorsPresent: false,
       }));
     }
   }, [displayInfo]);
