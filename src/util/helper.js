@@ -4,7 +4,7 @@ const environmentConfig = {
     "chrome",
     "msedge",
     "firefox",
-    "ms-teams",
+    // "ms-teams",
     "zoom",
     "google-meet",
     "slack",
