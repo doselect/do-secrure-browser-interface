@@ -18,7 +18,6 @@ import LoaderComponent from "../Loader";
 
 const Instruction = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [deviceInfo, setDeviceInfo] = useState(null);
   const location = useLocation();
   // Extract query parameters from the location object
   const queryParams = new URLSearchParams(location.search);
@@ -44,8 +43,9 @@ const Instruction = () => {
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
       window.location.href = testUrl;
+    } else {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, []);
 
   return (
