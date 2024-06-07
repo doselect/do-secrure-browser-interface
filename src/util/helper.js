@@ -8,7 +8,7 @@ const environmentConfig = {
     "zoom",
     "google-meet",
     "slack",
-    "brave",
+    // "brave",
   ],
 };
 
