@@ -8,7 +8,14 @@ const TestAccessUrlInput = () => {
 
   const handleOpenTest = () => {
     if (url) {
-      window.location.href = url;
+      if (window.electron) {
+        console.log(window.electron);
+        const { sendMsgToElectron } = window.electron;
+        sendMsgToElectron("SET_TEST_URL", { url: url }, res => {
+          console.log(res);
+        });
+      }
+      // window.location.href = url;
     } else {
       alert("Please enter a URL");
     }
