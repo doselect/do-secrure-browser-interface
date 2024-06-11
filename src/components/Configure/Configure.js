@@ -271,9 +271,15 @@ const Configure = () => {
             <img src={candidateEnv2} alt="candidateEnv2" />
           </div>
         </div>
-        <button className="start-test primary" onClick={startTest}>
-          {btntext}
-        </button>
+        <div className="instruction-footer">
+          <span className="help-container">
+            If you need any more help, please{" "}
+            <span className="help-link">click here</span>
+          </span>
+          <button className="start-test primary" onClick={startTest}>
+            {btntext}
+          </button>
+        </div>
       </div>
       <Footer />
     </>
