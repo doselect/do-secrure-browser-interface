@@ -7,6 +7,7 @@ import {
 import "./App.scss";
 import Configure from "./components/Configure/Configure";
 import Instruction from "./components/Instruction";
+import TestAccessUrlInput from "./components/TestAccessUrlInput";
 
 function App() {
   const router = createBrowserRouter([
@@ -30,6 +31,10 @@ function App() {
     {
       path: "instruction",
       element: <Instruction />,
+    },
+    {
+      path: "testRoute",
+      element: <TestAccessUrlInput />,
     },
   ]);
   return <RouterProvider router={router} />;
