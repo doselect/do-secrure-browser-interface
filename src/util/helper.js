@@ -9,6 +9,7 @@ const environmentConfig = {
     "google-meet",
     "slack",
     // "brave",
+    "AnyDesk",
   ],
 };
 
