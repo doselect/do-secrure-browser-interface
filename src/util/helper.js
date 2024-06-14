@@ -36,7 +36,9 @@ export function parseGetallProceessResult(data) {
   if (newData.has('"Name"')) {
     newData.delete('"Name"');
     newData.delete("\n");
-    newData.delete('""');
+  }
+  if (newData.has('"')) {
+    newData.delete('"');
   }
   console.log(newData, "after");
   return newData;
