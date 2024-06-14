@@ -25,6 +25,11 @@ const Configure = () => {
     multiMonitorsPresent: null,
     restrictedAppsRunning: null,
   });
+  const [commandStatus, setCommandStatus] = useState({
+    runningApps: "notExecuted",
+    notification: "notExecuted",
+    monitor: "notExecuted",
+  });
 
   const [checked, setChecked] = useState(false);
 
@@ -34,12 +39,16 @@ const Configure = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
   const [displayInfo, setDisplayInfo] = useState([]);
 
+  const isCommandsInProgress =
+    Object.values(commandStatus).includes("inProgress");
+
   const handleCheckboxChange = event => {
     setChecked(event.target.checked);
   };
 
   const getAllRunningApps = () => {
     if (window.electron) {
+      setCommandStatus(prev => ({ ...prev, runningApps: "inProgress" }));
       const { exec } = window.electron;
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
@@ -52,6 +61,7 @@ const Configure = () => {
         const newData = parseGetallProceessResult(res.result);
 
         setRunningProcess(newData);
+        setCommandStatus(prev => ({ ...prev, runningApps: "success" }));
 
         setSystemChecks(prev => ({
           ...prev,
@@ -79,6 +89,7 @@ const Configure = () => {
 
   const getMonitorInfo = () => {
     if (window.electron) {
+      setCommandStatus(prev => ({ ...prev, monitor: "inProgress" }));
       const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
       const { exec } = window.electron;
       const payload = {
@@ -90,12 +101,14 @@ const Configure = () => {
       exec(CONFIGURE, payload, res => {
         const filteredArr = parseMonitorInfo(res.result);
         setDisplayInfo(filteredArr);
+        setCommandStatus(prev => ({ ...prev, monitor: "success" }));
       });
     }
   };
 
   const getSystemNotificationInfo = () => {
     if (window.electron) {
+      setCommandStatus(prev => ({ ...prev, notification: "inProgress" }));
       const cmd = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
       const { exec } = window.electron;
       const payload = {
@@ -103,6 +116,7 @@ const Configure = () => {
       };
       exec(CONFIGURE, payload, res => {
         if (res.error) {
+          setCommandStatus(prev => ({ ...prev, notification: "error" }));
           setSystemChecks(prev => ({
             ...prev,
             isNotificationEnable: true,
@@ -129,6 +143,7 @@ const Configure = () => {
               isNotificationEnable: true,
             }));
           }
+          setCommandStatus(prev => ({ ...prev, notification: "success" }));
         }
       });
     }
@@ -139,6 +154,12 @@ const Configure = () => {
       isNotificationEnable: null,
       multiMonitorsPresent: null,
       restrictedAppsRunning: null,
+    });
+
+    setCommandStatus({
+      runningApps: "notExecuted",
+      notification: "notExecuted",
+      monitor: "notExecuted",
     });
 
     setReverify(prev => !prev);
@@ -276,7 +297,13 @@ const Configure = () => {
             If you need any more help, please{" "}
             <span className="help-link">click here</span>
           </span>
-          <button className="start-test primary" onClick={startTest}>
+          <button
+            disabled={isCommandsInProgress}
+            className={`start-test primary ${
+              isCommandsInProgress ? "disable" : ""
+            }`}
+            onClick={startTest}
+          >
             {btntext}
           </button>
         </div>

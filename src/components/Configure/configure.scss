@@ -48,6 +48,9 @@
     cursor: pointer;
     align-self: flex-end;
   }
+  .disable {
+    opacity: 0.5;
+  }
   .configure-img-container {
     align-items: center;
     display: flex;
