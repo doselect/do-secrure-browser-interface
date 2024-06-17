@@ -23,6 +23,17 @@ const Instruction = () => {
   const queryParams = new URLSearchParams(location.search);
   // Get the value of a specific query parameter
   const testUrl = queryParams.get("dsUrl");
+  console.log(testUrl, "manish");
+
+  function caesarDecrypt(encryptedText, shift) {
+    var decrypted = "";
+    for (const i = 0; i < encryptedText.length; i++) {
+      decrypted += String.fromCharCode(
+        ((encryptedText.charCodeAt(i) - shift - 32 + 95) % 95) + 32
+      );
+    }
+    return decrypted;
+  }
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -42,7 +53,7 @@ const Instruction = () => {
     if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
-      window.location.href = testUrl;
+      window.location.href = caesarDecrypt(testUrl, 3);
     } else {
       setIsLoading(false);
     }
