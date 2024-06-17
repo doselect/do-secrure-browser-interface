@@ -26,8 +26,8 @@ const Instruction = () => {
   console.log(testUrl, "manish");
 
   function caesarDecrypt(encryptedText, shift) {
-    var decrypted = "";
-    for (const i = 0; i < encryptedText.length; i++) {
+    let decrypted = "";
+    for (let i = 0; i < encryptedText.length; i++) {
       decrypted += String.fromCharCode(
         ((encryptedText.charCodeAt(i) - shift - 32 + 95) % 95) + 32
       );
