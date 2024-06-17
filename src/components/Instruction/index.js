@@ -25,14 +25,28 @@ const Instruction = () => {
   const testUrl = queryParams.get("dsUrl");
   console.log(testUrl, "manish");
 
-  function caesarDecrypt(encryptedText, shift) {
-    let decrypted = encryptedText;
+  function caesarDecrypt(p, shift) {
+    let res = p.split("");
+    let i = 0,
+      j = res.length - 1;
+
+    while (i <= j) {
+      if (i % 2 === 0) {
+        let t = res[i];
+        res[i] = res[j];
+        res[j] = t;
+      }
+      i++;
+      j--;
+    }
+
+    res = res.join("");
     // for (let i = 0; i < encryptedText.length; i++) {
     //   decrypted += String.fromCharCode(
     //     ((encryptedText.charCodeAt(i) - shift - 32 + 95) % 95) + 32
     //   );
     // }
-    return decrypted;
+    return res;
   }
 
   useEffect(() => {
