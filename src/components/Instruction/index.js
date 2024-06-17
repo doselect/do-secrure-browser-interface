@@ -26,27 +26,27 @@ const Instruction = () => {
   console.log(testUrl, "manish");
 
   function caesarDecrypt(p, shift) {
-    let res = p.split("");
-    let i = 0,
-      j = res.length - 1;
+    // let res = p.split("");
+    // let i = 0,
+    //   j = res.length - 1;
 
-    while (i <= j) {
-      if (i % 2 === 0) {
-        let t = res[i];
-        res[i] = res[j];
-        res[j] = t;
-      }
-      i++;
-      j--;
-    }
+    // while (i <= j) {
+    //   if (i % 2 === 0) {
+    //     let t = res[i];
+    //     res[i] = res[j];
+    //     res[j] = t;
+    //   }
+    //   i++;
+    //   j--;
+    // }
 
-    res = res.join("");
+    // res = res.join("");
     // for (let i = 0; i < encryptedText.length; i++) {
     //   decrypted += String.fromCharCode(
     //     ((encryptedText.charCodeAt(i) - shift - 32 + 95) % 95) + 32
     //   );
     // }
-    return res;
+    return p;
   }
 
   useEffect(() => {
@@ -67,7 +67,9 @@ const Instruction = () => {
     if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
-      window.location.href = caesarDecrypt(testUrl, 3);
+      const l = caesarDecrypt(testUrl, 3);
+      console.log(l);
+      window.location.href = l;
     } else {
       setIsLoading(false);
     }
