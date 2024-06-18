@@ -33,11 +33,12 @@ export function buildKillRunningProcessWinCommand(
 export function parseGetallProceessResult(data) {
   const newData = new Set(data.split("\r"));
   console.log(newData, "before");
-  if (newData.has('"Name"')) {
-    newData.delete('"Name"');
-    newData.delete("\n");
+  const valuesToRemove = ['"Name"', "\n", ""];
+
+  for (const value of valuesToRemove) {
+    newData.delete(value);
   }
- 
+
   console.log(newData, "after");
   return newData;
 }
