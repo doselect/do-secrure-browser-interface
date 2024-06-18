@@ -51,6 +51,10 @@ const Instruction = () => {
     return p;
   }
 
+  function base64Decode(str) {
+    return decodeURIComponent(escape(atob(str)));
+  }
+
   function caesarShift(str, shift) {
     return str
       .split("")
@@ -70,7 +74,7 @@ const Instruction = () => {
 
   function decryptUrl(encryptedUrl, key) {
     const shift = key.length % 26;
-    const decodedEncrypted = decodeURIComponent(encryptedUrl);
+    const decodedEncrypted = base64Decode(encryptedUrl);
     const decrypted = caesarShift(decodedEncrypted, -shift);
     return decrypted;
   }
