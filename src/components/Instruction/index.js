@@ -23,6 +23,8 @@ const Instruction = () => {
   const queryParams = new URLSearchParams(location.search);
   // Get the value of a specific query parameter
   const testUrl = queryParams.get("dsUrl");
+
+  const candidateEmail = queryParams.get("email");
   console.log(testUrl, "manish");
 
   function caesarDecrypt(p, shift) {
@@ -49,6 +51,30 @@ const Instruction = () => {
     return p;
   }
 
+  function caesarShift(str, shift) {
+    return str
+      .split("")
+      .map(char => {
+        let code = char.charCodeAt(0);
+
+        // Shift letters
+        if (code >= 65 && code <= 90) {
+          return String.fromCharCode(((code - 65 + shift) % 26) + 65);
+        } else if (code >= 97 && code <= 122) {
+          return String.fromCharCode(((code - 97 + shift) % 26) + 97);
+        }
+        return char; // Non-letters remain unchanged
+      })
+      .join("");
+  }
+
+  function decryptUrl(encryptedUrl, key) {
+    const shift = key.length % 26;
+    const decodedEncrypted = decodeURIComponent(encryptedUrl);
+    const decrypted = caesarShift(decodedEncrypted, -shift);
+    return decrypted;
+  }
+
   useEffect(() => {
     const userAgent = navigator.userAgent;
 
@@ -67,7 +93,8 @@ const Instruction = () => {
     if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
-      const l = caesarDecrypt(testUrl, 3);
+      // const l = caesarDecrypt(testUrl, 3);
+      const l = decryptUrl(testUrl, candidateEmail);
       console.log(l);
       window.location.href = l;
     } else {
