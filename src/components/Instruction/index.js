@@ -52,6 +52,7 @@ const Instruction = () => {
   }
 
   function base64Decode(str) {
+    str = (str + "===").slice(0, str.length + (str.length % 4));
     return decodeURIComponent(escape(atob(str)));
   }
 
