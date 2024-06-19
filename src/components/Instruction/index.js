@@ -51,11 +51,6 @@ const Instruction = () => {
     return p;
   }
 
-  function base64Decode(str) {
-    str = (str + "===").slice(0, str.length + (str.length % 4));
-    return decodeURIComponent(escape(atob(str)));
-  }
-
   function caesarShift(string, key) {
     let cipher = "";
     string.split("").forEach(char => {
@@ -76,7 +71,7 @@ const Instruction = () => {
     const shift = 4;
     const decodedEncrypted = encryptedUrl;
     const decrypted = caesarShift(decodedEncrypted, -shift);
-    return decrypted;
+    return encryptedUrl;
   }
 
   useEffect(() => {
