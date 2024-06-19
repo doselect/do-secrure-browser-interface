@@ -56,26 +56,25 @@ const Instruction = () => {
     return decodeURIComponent(escape(atob(str)));
   }
 
-  function caesarShift(str, shift) {
-    return str
-      .split("")
-      .map(char => {
-        let code = char.charCodeAt(0);
+  function caesarShift(string, key) {
+    let cipher = "";
+    string.split("").forEach(char => {
+      let code = char.charCodeAt();
+      let start = 0;
+      if (code >= 65 && code <= 90) start = 65;
+      else if (code >= 97 && code <= 122) start = 97;
+      else cipher += char;
 
-        // Shift letters
-        if (code >= 65 && code <= 90) {
-          return String.fromCharCode(((code - 65 + shift) % 26) + 65);
-        } else if (code >= 97 && code <= 122) {
-          return String.fromCharCode(((code - 97 + shift) % 26) + 97);
-        }
-        return char; // Non-letters remain unchanged
-      })
-      .join("");
+      if (start)
+        cipher += String.fromCharCode(((code - start + key + 26) % 26) + start);
+    });
+
+    return cipher;
   }
 
-  function decryptUrl(encryptedUrl, key) {
-    const shift = key.length % 26;
-    const decodedEncrypted = base64Decode(encryptedUrl);
+  function decryptUrl(encryptedUrl) {
+    const shift = 4;
+    const decodedEncrypted = encryptedUrl;
     const decrypted = caesarShift(decodedEncrypted, -shift);
     return decrypted;
   }
@@ -99,7 +98,7 @@ const Instruction = () => {
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
       // const l = caesarDecrypt(testUrl, 3);
-      const l = decryptUrl(testUrl, candidateEmail);
+      const l = decryptUrl(testUrl);
       console.log(l);
       window.location.href = l;
     } else {
