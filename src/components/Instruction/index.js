@@ -71,7 +71,7 @@ const Instruction = () => {
     const shift = 4;
     const decodedEncrypted = encryptedUrl;
     const decrypted = caesarShift(decodedEncrypted, -shift);
-    return decrypted;
+    return encryptedUrl;
   }
 
   useEffect(() => {
