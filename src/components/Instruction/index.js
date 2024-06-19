@@ -147,7 +147,7 @@ const Instruction = () => {
                 className="download secondary"
                 onClick={() => {
                   window.open(
-                    "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/doselect_secure_browser_setup_1.0.1.exe"
+                    "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/Doselect+Secure+Browser.exe"
                   );
                 }}
               >
