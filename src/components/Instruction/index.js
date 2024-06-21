@@ -122,7 +122,7 @@ const Instruction = () => {
                 className="test-link primary"
                 onClick={() => {
                   window.open(
-                    `Doselect://?email=${candidateEmail}&testName=${testName}&dsUrl=${testUrl}`
+                    `Doselect://?dsUrl=${testUrl}&email=${candidateEmail}&testName=${testName}`
                   );
                 }}
               >
