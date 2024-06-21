@@ -24,6 +24,7 @@ const Instruction = () => {
   const queryParams = new URLSearchParams(location.search);
   // Get the value of a specific query parameter
   const testUrl = queryParams.get("dsUrl");
+  const testName = queryParams.get("testName");
 
   const candidateEmail = queryParams.get("email");
   console.log(testUrl, "manish");
@@ -120,7 +121,9 @@ const Instruction = () => {
               <button
                 className="test-link primary"
                 onClick={() => {
-                  window.open(`Doselect://?dsUrl=${testUrl}`);
+                  window.open(
+                    `Doselect://?email=${candidateEmail}&testName=${testName}&dsUrl=${testUrl}`
+                  );
                 }}
               >
                 {PROCEED_TEST_TEXT}
