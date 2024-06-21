@@ -15,6 +15,7 @@ import {
 } from "../../util/constant";
 import "./instruction.scss";
 import LoaderComponent from "../Loader";
+import { removeCharsByVowelCount } from "../../util/helper";
 
 const Instruction = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,27 +52,9 @@ const Instruction = () => {
     return p;
   }
 
-  function caesarShift(string, key) {
-    let cipher = "";
-    string.split("").forEach(char => {
-      let code = char.charCodeAt();
-      let start = 0;
-      if (code >= 65 && code <= 90) start = 65;
-      else if (code >= 97 && code <= 122) start = 97;
-      else cipher += char;
-
-      if (start)
-        cipher += String.fromCharCode(((code - start + key + 26) % 26) + start);
-    });
-
-    return cipher;
-  }
-
   function decryptUrl(encryptedUrl) {
-    const shift = 4;
-    const decodedEncrypted = encryptedUrl;
-    const decrypted = caesarShift(decodedEncrypted, -shift);
-    return encryptedUrl;
+    const decrypted = removeCharsByVowelCount(encryptedUrl, candidateEmail);
+    return decrypted;
   }
 
   useEffect(() => {

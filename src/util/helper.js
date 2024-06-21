@@ -73,3 +73,20 @@ export function parseSystemNotificationResult(data) {
   }
   return null;
 }
+
+export function removeCharsByVowelCount(text, string) {
+  const vowels = "aeiouAEIOU";
+  let vowelCount = 0;
+
+  for (let i = 0; i < string.length; i++) {
+    if (vowels.indexOf(string[i]) !== -1) {
+      vowelCount++;
+    }
+  }
+
+  if (text.length > vowelCount) {
+    return text.slice(0, -vowelCount);
+  } else {
+    return text;
+  }
+}
