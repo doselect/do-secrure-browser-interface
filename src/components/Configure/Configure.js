@@ -14,6 +14,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 import "./configure.scss";
 import PretestConfigure from "../PretestConfigure";
+import LoaderComponent from "../Loader";
 
 // null means we dont know yet
 // true means yes condition fullfill
@@ -211,6 +212,10 @@ const Configure = () => {
     systemChecks.restrictedAppsRunning === false
   ) {
     return <PretestConfigure />;
+  }
+
+  if (isCommandsInProgress) {
+    <LoaderComponent title="" subText="" />;
   }
 
   return (
