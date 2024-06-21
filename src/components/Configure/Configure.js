@@ -215,7 +215,7 @@ const Configure = () => {
   }
 
   if (isCommandsInProgress) {
-    <LoaderComponent title="" subText="" />;
+    return <LoaderComponent title="" subText="" />;
   }
 
   return (
