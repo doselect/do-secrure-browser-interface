@@ -27,7 +27,7 @@ const Configure = () => {
 
   const queryParams = new URLSearchParams(location.search);
   // Get the value of a specific query parameter
-  console.log(location, "paras");
+
   const testName = queryParams.get("testName");
 
   const candidateEmail = queryParams.get("email");
@@ -214,7 +214,10 @@ const Configure = () => {
     const ubaPayload = {
       pageName: "Configuration Page",
     };
-    initTracking(ubaPayload, {});
+    const keyNames = {
+      loggedinUserEmailId: candidateEmail,
+    };
+    initTracking(ubaPayload, keyNames);
     pageView({}, UBA_EVENT_NAME.proctoringTracker);
 
     // block finger gewstures

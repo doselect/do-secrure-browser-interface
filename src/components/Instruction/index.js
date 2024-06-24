@@ -44,7 +44,11 @@ const Instruction = () => {
     const ubaPayload = {
       pageName: "Instruction Page",
     };
-    initTracking(ubaPayload, {});
+    const keyNames = {
+      loggedinUserEmailId: candidateEmail,
+    };
+
+    initTracking(ubaPayload, keyNames);
 
     let deviceType = "Unknown";
     if (/Mobi|Android/i.test(userAgent)) {
