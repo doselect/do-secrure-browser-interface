@@ -176,6 +176,19 @@ const Configure = () => {
       exec(CONFIGURE, payload, res => {});
     }
   };
+  useEffect(() => {
+    const ubaPayload = {
+      pageName: "Configuration Page",
+    };
+    const keyNames = {
+      loggedinUserEmailId: candidateEmail,
+    };
+    initTracking(ubaPayload, keyNames);
+    pageView({}, UBA_EVENT_NAME.proctoringTracker);
+
+    // block finger gewstures
+    blockFingerGestures();
+  }, []);
 
   const startTest = () => {
     setSystemChecks({
@@ -209,20 +222,6 @@ const Configure = () => {
       },
     });
   }, [reverify]);
-
-  useEffect(() => {
-    const ubaPayload = {
-      pageName: "Configuration Page",
-    };
-    const keyNames = {
-      loggedinUserEmailId: candidateEmail,
-    };
-    initTracking(ubaPayload, keyNames);
-    pageView({}, UBA_EVENT_NAME.proctoringTracker);
-
-    // block finger gewstures
-    blockFingerGestures();
-  }, []);
 
   useEffect(() => {
     if (runningProcess.size >= 1) {
