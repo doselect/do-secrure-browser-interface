@@ -8,6 +8,7 @@ import "./App.scss";
 import Configure from "./components/Configure/Configure";
 import Instruction from "./components/Instruction";
 import TestAccessUrlInput from "./components/TestAccessUrlInput";
+import "./util/ubaInitialiser";
 
 function App() {
   const router = createBrowserRouter([

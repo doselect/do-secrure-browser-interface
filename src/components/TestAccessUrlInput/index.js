@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { UBA_EVENT_NAME } from "../../util/constant";
+import { ctaClick, initTracking, pageView } from "../../util/trackingUtils";
 import Footer from "../Footer";
 import Header from "../Header";
 import "./testAccessUrlInput.scss";
@@ -6,8 +8,24 @@ import "./testAccessUrlInput.scss";
 const TestAccessUrlInput = () => {
   const [url, setUrl] = useState("");
 
+  useEffect(() => {
+    const ubaPayload = {
+      pageName: "Test Route",
+    };
+    initTracking(ubaPayload, {});
+    pageView({}, UBA_EVENT_NAME.proctoringTracker);
+  }, []);
+
   const handleOpenTest = () => {
     if (url) {
+      ctaClick({
+        eventName: UBA_EVENT_NAME.proctoringTracker,
+        payload: {
+          label: "Open test",
+          cta: "Open test",
+          source: url,
+        },
+      });
       if (window.electron) {
         console.log(window.electron);
         const { sendMsgToElectron } = window.electron;
@@ -15,7 +33,6 @@ const TestAccessUrlInput = () => {
           console.log(res);
         });
       }
-      // window.location.href = url;
     } else {
       alert("Please enter a URL");
     }

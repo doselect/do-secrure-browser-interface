@@ -26,6 +26,38 @@
     -->
     <title>Doselect secure browser</title>
   </head>
+  <!-- UBA script -->
+  <script id="ubScript" defer>
+    (function () {
+      var queuedSuperProps = [];
+      var queuedEvents = [];
+      window.ub = {
+        track: function (eventName, eventProps) {
+          queuedEvents.push([eventName, eventProps]);
+        },
+        register: function (properties) {
+          queuedSuperProps.push(properties);
+        },
+      };
+      var script = document.createElement("script");
+      script.async = true;
+      script.src =
+        "https://assets.central.dev.sg1.chsh.in/scripts/ub_v1.16.min.js";
+      script.onload = function () {
+        ub.init({
+          beaconUrl: "https://test.collector.infoedge.com/uba",
+          bulkBeaconUrl: "https://logs.doselect.com/collectorapi/v1/uba/bulk",
+          queuedEvents: queuedEvents,
+          queuedSuperProps: queuedSuperProps,
+          tenantId: "1",
+          autoTrack: false,
+          blackList: [],
+        });
+      };
+      document.head.appendChild(script);
+    })();
+    ub.register({ tenantId: "11", appId: 802 });
+  </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

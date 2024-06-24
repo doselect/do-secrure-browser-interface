@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CONFIGURE, CONFIGURE_TITLE } from "../../util/constant";
+import {
+  CONFIGURE,
+  CONFIGURE_TITLE,
+  UBA_EVENT_NAME,
+} from "../../util/constant";
 import {
   buildGetRunningProcessWinCommand,
   buildKillRunningProcessWinCommand,
@@ -15,12 +19,21 @@ import Header from "../Header";
 import "./configure.scss";
 import PretestConfigure from "../PretestConfigure";
 import LoaderComponent from "../Loader";
-
-// null means we dont know yet
-// true means yes condition fullfill
-// false means checks failed
+import { ctaClick, initTracking, pageView } from "../../util/trackingUtils";
+import { useLocation } from "react-router-dom";
 
 const Configure = () => {
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  // Get the value of a specific query parameter
+  console.log(location, "paras");
+  const testName = queryParams.get("testName");
+
+  const candidateEmail = queryParams.get("email");
+
+  console.log(candidateEmail, "paras");
+  console.log(testName, "paras");
   const [systemChecks, setSystemChecks] = useState({
     isNotificationEnable: null,
     multiMonitorsPresent: null,
@@ -187,9 +200,23 @@ const Configure = () => {
     getSystemNotificationInfo();
     // run command to check multimonitors detected
     getMonitorInfo();
+    ctaClick({
+      eventName: UBA_EVENT_NAME.proctoringTracker,
+      payload: {
+        label: candidateEmail,
+        cta: "Reverify",
+        source: testName,
+      },
+    });
   }, [reverify]);
 
   useEffect(() => {
+    const ubaPayload = {
+      pageName: "Configuration Page",
+    };
+    initTracking(ubaPayload, {});
+    pageView({}, UBA_EVENT_NAME.proctoringTracker);
+
     // block finger gewstures
     blockFingerGestures();
   }, []);

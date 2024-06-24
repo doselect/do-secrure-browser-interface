@@ -15,3 +15,8 @@ export const PROCEED_TEST_TEXT = "Yes, Proceed to Test";
 export const DOWNLOAD_BROWSER_TEXT = "No, Download Secure Browser";
 export const CONFIGURE_TITLE =
   "Please fix these issues to continue to assessment";
+
+export const UBA_EVENT_NAME = {
+  proctoringTracker: "proctoringTracker",
+  
+};

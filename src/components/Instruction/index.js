@@ -12,10 +12,16 @@ import {
   INSTRUCTION_TEXT,
   INSTRUCTION_TEXT_SUB_PARTS,
   PROCEED_TEST_TEXT,
+  UBA_EVENT_NAME,
 } from "../../util/constant";
 import "./instruction.scss";
 import LoaderComponent from "../Loader";
 import { removeCharsByVowelCount } from "../../util/helper";
+import {
+  ctaClick,
+  initTracking,
+  proctoringUBALogger,
+} from "../../util/trackingUtils";
 
 const Instruction = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,31 +33,6 @@ const Instruction = () => {
   const testName = queryParams.get("testName");
 
   const candidateEmail = queryParams.get("email");
-  console.log(testUrl, "manish");
-
-  function caesarDecrypt(p, shift) {
-    // let res = p.split("");
-    // let i = 0,
-    //   j = res.length - 1;
-
-    // while (i <= j) {
-    //   if (i % 2 === 0) {
-    //     let t = res[i];
-    //     res[i] = res[j];
-    //     res[j] = t;
-    //   }
-    //   i++;
-    //   j--;
-    // }
-
-    // res = res.join("");
-    // for (let i = 0; i < encryptedText.length; i++) {
-    //   decrypted += String.fromCharCode(
-    //     ((encryptedText.charCodeAt(i) - shift - 32 + 95) % 95) + 32
-    //   );
-    // }
-    return p;
-  }
 
   function decryptUrl(encryptedUrl) {
     const decrypted = removeCharsByVowelCount(encryptedUrl, candidateEmail);
@@ -60,6 +41,10 @@ const Instruction = () => {
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
+    const ubaPayload = {
+      pageName: "Instruction Page",
+    };
+    initTracking(ubaPayload, {});
 
     let deviceType = "Unknown";
     if (/Mobi|Android/i.test(userAgent)) {
@@ -78,7 +63,7 @@ const Instruction = () => {
     if (deviceType !== "Desktop" || osType !== "Windows") {
       // const l = caesarDecrypt(testUrl, 3);
       const l = decryptUrl(testUrl);
-      console.log(l);
+      proctoringUBALogger(candidateEmail, l);
       window.location.href = l;
     } else {
       setIsLoading(false);
@@ -121,6 +106,14 @@ const Instruction = () => {
               <button
                 className="test-link primary"
                 onClick={() => {
+                  ctaClick({
+                    eventName: UBA_EVENT_NAME.proctoringTracker,
+                    payload: {
+                      label: candidateEmail,
+                      cta: "Download secure browser",
+                      source: `Doselect://?email=${candidateEmail}&testName=${testName}&dsUrl=${testUrl}`,
+                    },
+                  });
                   window.open(
                     `Doselect://?email=${candidateEmail}&testName=${testName}&dsUrl=${testUrl}`
                   );
@@ -132,6 +125,15 @@ const Instruction = () => {
               <button
                 className="download secondary"
                 onClick={() => {
+                  ctaClick({
+                    eventName: UBA_EVENT_NAME.proctoringTracker,
+                    payload: {
+                      label: candidateEmail,
+                      cta: "Download secure browser",
+                      source:
+                        "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/Doselect+Secure+Browser.exe",
+                    },
+                  });
                   window.open(
                     "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/Doselect+Secure+Browser.exe"
                   );
