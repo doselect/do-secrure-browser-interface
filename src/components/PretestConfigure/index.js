@@ -6,20 +6,7 @@ import Header from "../Header";
 import LoaderComponent from "../Loader";
 
 const PretestConfigure = () => {
-  const blockFingerGestures = () => {
-    if (window.electron) {
-      const cmd = `reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v ThreeFingerSlideEnabled /t REG_DWORD /d 0 /f && reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v FourFingerSlideEnabled /t REG_DWORD /d 0 /f && taskkill /f /im explorer.exe && start explorer.exe`;
-      const { exec } = window.electron;
-      const payload = {
-        cmd,
-        isRecurring: false,
-        frequency: 0,
-        event: "BLOCK_GESTURES",
-      };
-      exec(CONFIGURE, payload, res => {});
-    }
-  };
-  useEffect(() => {
+  const blockActions = () => {
     if (window.electron) {
       const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
       const { exec } = window.electron;
@@ -56,6 +43,24 @@ const PretestConfigure = () => {
         console.log(res);
       });
     }
+  };
+  const blockFingerGestures = () => {
+    if (window.electron) {
+      const cmd = `reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v ThreeFingerSlideEnabled /t REG_DWORD /d 0 /f && reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v FourFingerSlideEnabled /t REG_DWORD /d 0 /f && taskkill /f /im explorer.exe && start explorer.exe`;
+      const { exec } = window.electron;
+      const payload = {
+        cmd,
+        isRecurring: false,
+        frequency: 0,
+        event: "BLOCK_GESTURES",
+      };
+      exec(CONFIGURE, payload, res => {
+        blockActions();
+      });
+    }
+  };
+
+  useEffect(() => {
     blockFingerGestures();
   }, []);
   return (
