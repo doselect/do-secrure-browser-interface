@@ -150,20 +150,6 @@ const Configure = () => {
     }
   };
 
-  const blockFingerGestures = () => {
-    if (window.electron) {
-      const cmd = `reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v ThreeFingerSlideEnabled /t REG_DWORD /d 0 /f && reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v FourFingerSlideEnabled /t REG_DWORD /d 0 /f && taskkill /f /im explorer.exe && start explorer.exe`;
-      const { exec } = window.electron;
-      const payload = {
-        cmd,
-        isRecurring: false,
-        frequency: 0,
-        event: "BLOCK_GESTURES",
-      };
-      exec(CONFIGURE, payload, res => {});
-    }
-  };
-
   const startTest = () => {
     setSystemChecks({
       isNotificationEnable: null,
@@ -188,11 +174,6 @@ const Configure = () => {
     // run command to check multimonitors detected
     getMonitorInfo();
   }, [reverify]);
-
-  useEffect(() => {
-    // block finger gewstures
-    blockFingerGestures();
-  }, []);
 
   useEffect(() => {
     if (runningProcess.size >= 1) {
