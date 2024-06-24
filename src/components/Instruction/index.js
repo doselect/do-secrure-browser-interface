@@ -46,6 +46,7 @@ const Instruction = () => {
     };
     const keyNames = {
       loggedinUserEmailId: candidateEmail,
+      testName,
     };
 
     initTracking(ubaPayload, keyNames);

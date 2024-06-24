@@ -182,6 +182,7 @@ const Configure = () => {
     };
     const keyNames = {
       loggedinUserEmailId: candidateEmail,
+      testName,
     };
     initTracking(ubaPayload, keyNames);
     pageView({}, UBA_EVENT_NAME.proctoringTracker);
