@@ -1,40 +1,27 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.scss";
 import Configure from "./components/Configure/Configure";
 import Instruction from "./components/Instruction";
 import TestAccessUrlInput from "./components/TestAccessUrlInput";
+import { PAGE_ROUTE } from "./util/constant";
 import "./util/ubaInitialiser";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <div>
-          <h1>Hello World</h1>
-          <Link to="about">About Us</Link>
-        </div>
-      ),
+      element: <></>,
     },
     {
-      path: "about",
-      element: <div>About</div>,
-    },
-    {
-      path: "configure",
+      path: PAGE_ROUTE.CONFIGURE,
       element: <Configure />,
     },
     {
-      path: "instruction",
+      path: PAGE_ROUTE.INSTRUCTION,
       element: <Instruction />,
     },
     {
-      path: "testRoute",
+      path: PAGE_ROUTE.TEST_ROUTE,
       element: <TestAccessUrlInput />,
     },
   ]);

@@ -18,5 +18,17 @@ export const CONFIGURE_TITLE =
 
 export const UBA_EVENT_NAME = {
   proctoringTracker: "proctoringTracker",
-  
+};
+
+export const PAGE_ROUTE = {
+  CONFIGURE: "configure",
+  INSTRUCTION: "instruction",
+  TEST_ROUTE: "testRoute",
+};
+
+export const COMMAND_STATUS = {
+  RUNNING: "running",
+  NOT_EXECUTED: "notExecuted",
+  IN_PROGRESS: "inProgress",
+  SUCCESS: "success",
 };

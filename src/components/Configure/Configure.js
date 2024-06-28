@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  COMMAND_STATUS,
   CONFIGURE,
   CONFIGURE_TITLE,
   UBA_EVENT_NAME,
@@ -26,23 +27,21 @@ const Configure = () => {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
-  // Get the value of a specific query parameter
 
   const testName = queryParams.get("testName");
 
   const candidateEmail = queryParams.get("email");
 
-  console.log(candidateEmail, "paras");
-  console.log(testName, "paras");
   const [systemChecks, setSystemChecks] = useState({
     isNotificationEnable: null,
     multiMonitorsPresent: null,
     restrictedAppsRunning: null,
   });
+
   const [commandStatus, setCommandStatus] = useState({
-    runningApps: "notExecuted",
-    notification: "notExecuted",
-    monitor: "notExecuted",
+    runningApps: COMMAND_STATUS.NOT_EXECUTED,
+    notification: COMMAND_STATUS.NOT_EXECUTED,
+    monitor: COMMAND_STATUS.NOT_EXECUTED,
   });
 
   const [checked, setChecked] = useState(false);
@@ -53,8 +52,9 @@ const Configure = () => {
   const [runningProcess, setRunningProcess] = useState(new Set());
   const [displayInfo, setDisplayInfo] = useState([]);
 
-  const isCommandsInProgress =
-    Object.values(commandStatus).includes("inProgress");
+  const isCommandsInProgress = Object.values(commandStatus).includes(
+    COMMAND_STATUS.IN_PROGRESS
+  );
 
   const handleCheckboxChange = event => {
     setChecked(event.target.checked);
@@ -62,7 +62,10 @@ const Configure = () => {
 
   const getAllRunningApps = () => {
     if (window.electron) {
-      setCommandStatus(prev => ({ ...prev, runningApps: "inProgress" }));
+      setCommandStatus(prev => ({
+        ...prev,
+        runningApps: COMMAND_STATUS.IN_PROGRESS,
+      }));
       const { exec } = window.electron;
       const payload = {
         cmd: buildGetRunningProcessWinCommand(),
@@ -71,11 +74,13 @@ const Configure = () => {
         event: "CONFIGURE_APPS",
       };
       exec(CONFIGURE, payload, res => {
-        console.log(res.result, "manish");
         const newData = parseGetallProceessResult(res.result);
 
         setRunningProcess(newData);
-        setCommandStatus(prev => ({ ...prev, runningApps: "success" }));
+        setCommandStatus(prev => ({
+          ...prev,
+          runningApps: COMMAND_STATUS.SUCCESS,
+        }));
 
         setSystemChecks(prev => ({
           ...prev,
@@ -103,7 +108,10 @@ const Configure = () => {
 
   const getMonitorInfo = () => {
     if (window.electron) {
-      setCommandStatus(prev => ({ ...prev, monitor: "inProgress" }));
+      setCommandStatus(prev => ({
+        ...prev,
+        monitor: COMMAND_STATUS.IN_PROGRESS,
+      }));
       const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
       const { exec } = window.electron;
       const payload = {
@@ -115,14 +123,20 @@ const Configure = () => {
       exec(CONFIGURE, payload, res => {
         const filteredArr = parseMonitorInfo(res.result);
         setDisplayInfo(filteredArr);
-        setCommandStatus(prev => ({ ...prev, monitor: "success" }));
+        setCommandStatus(prev => ({
+          ...prev,
+          monitor: COMMAND_STATUS.SUCCESS,
+        }));
       });
     }
   };
 
   const getSystemNotificationInfo = () => {
     if (window.electron) {
-      setCommandStatus(prev => ({ ...prev, notification: "inProgress" }));
+      setCommandStatus(prev => ({
+        ...prev,
+        notification: COMMAND_STATUS.IN_PROGRESS,
+      }));
       const cmd = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
       const { exec } = window.electron;
       const payload = {
@@ -138,9 +152,7 @@ const Configure = () => {
           return;
         }
         const toastEnabledValue = parseSystemNotificationResult(res.result);
-        console.log(toastEnabledValue, "paras");
         if (toastEnabledValue) {
-          console.log(`The value of ToastEnabled is ${toastEnabledValue}`);
           if (toastEnabledValue === "0x0") {
             setSystemChecks(prev => ({
               ...prev,
@@ -157,7 +169,10 @@ const Configure = () => {
               isNotificationEnable: true,
             }));
           }
-          setCommandStatus(prev => ({ ...prev, notification: "success" }));
+          setCommandStatus(prev => ({
+            ...prev,
+            notification: COMMAND_STATUS.SUCCESS,
+          }));
         }
       });
     }
@@ -176,6 +191,7 @@ const Configure = () => {
       exec(CONFIGURE, payload, res => {});
     }
   };
+  
   useEffect(() => {
     const ubaPayload = {
       pageName: "Configuration Page",
@@ -242,7 +258,6 @@ const Configure = () => {
   }, [runningProcess]);
 
   useEffect(() => {
-    console.log(displayInfo, "paras");
     if (displayInfo.length === 1) {
       setSystemChecks(prev => ({
         ...prev,
