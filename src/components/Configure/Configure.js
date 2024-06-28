@@ -191,7 +191,7 @@ const Configure = () => {
       exec(CONFIGURE, payload, res => {});
     }
   };
-  
+
   useEffect(() => {
     const ubaPayload = {
       pageName: "Configuration Page",
@@ -289,38 +289,6 @@ const Configure = () => {
         <div className="title">{CONFIGURE_TITLE}</div>
         <div className="configure-img-container">
           <div className="configure">
-            {systemChecks.restrictedAppsRunning && (
-              <div className="configure-app-container">
-                <div className="title">
-                  <img src={ErrorOutline} />
-                  <span className="info-desc-container">
-                    <span className="info">Open Applications Detected </span>
-                    <p className="description">
-                      We've detected multiple open applications on your system.
-                      Please save your work and click "Re-Verify" to proceed, or
-                      click the checkbox for us to close them for you.
-                    </p>
-                    <div>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={handleCheckboxChange}
-                        />
-                        By checking this box, I agree to allow Doselect to close
-                        all running applications.
-                      </label>
-                    </div>
-                  </span>
-                </div>
-                <ul className="app-list">
-                  {Array.from(runningProcess).map(process => (
-                    <li key={process}>{process}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
             {systemChecks.multiMonitorsPresent && (
               <div className="configure-display-container">
                 <div className="title">
@@ -354,6 +322,37 @@ const Configure = () => {
                   </span>
                 </div>
                 {/* <ul className="notification-info">{notificationInfo}</ul> */}
+              </div>
+            )}
+            {systemChecks.restrictedAppsRunning && (
+              <div className="configure-app-container">
+                <div className="title">
+                  <img src={ErrorOutline} />
+                  <span className="info-desc-container">
+                    <span className="info">Open Applications Detected </span>
+                    <p className="description">
+                      We've detected multiple open applications on your system.
+                      Please save your work and click "Re-Verify" to proceed, or
+                      click the checkbox for us to close them for you.
+                    </p>
+                    <div>
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={handleCheckboxChange}
+                        />
+                        By checking this box, I agree to allow Doselect to close
+                        all running applications.
+                      </label>
+                    </div>
+                  </span>
+                </div>
+                <ul className="app-list">
+                  {Array.from(runningProcess).map(process => (
+                    <li key={process}>{process}</li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
