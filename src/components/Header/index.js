@@ -14,7 +14,6 @@ const Header = () => {
         <img src={DoselectLogo} alt="Doselect Logo" />
         <span className="test-title ellipsis-text">{testName}</span>
       </div>
-      <span className="help">Help</span>
     </div>
   );
 };
