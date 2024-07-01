@@ -40,31 +40,19 @@ const Instruction = () => {
   }
 
   function checkCustomProtocol() {
-    let iframe = document.createElement("iframe");
+    const protocolHandled = false;
 
-    iframe.style.display = "none";
-
-    document.body.appendChild(iframe);
-
-    let protocolHandled = false;
-
-    iframe.onload = function () {
-      protocolHandled = true;
-
-      document.body.removeChild(iframe);
-
-      console.log("Custom protocol is handled.");
-    };
-
-    iframe.src = "doselect://test";
-
-    setTimeout(function () {
-      if (!protocolHandled) {
-        console.log("Custom protocol is not handled.");
-
-        document.body.removeChild(iframe);
-      }
-    }, 1000);
+    fetch("myprotocol://test")
+      .then(response => {
+        if (response.ok) {
+          console.log("Custom protocol is handled.");
+        } else {
+          console.log("Custom protocol is not handled.");
+        }
+      })
+      .catch(error => {
+        console.log("Custom protocol is not handled.", error);
+      });
   }
 
   useEffect(() => {
