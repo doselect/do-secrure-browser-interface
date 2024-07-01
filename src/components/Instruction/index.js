@@ -39,20 +39,27 @@ const Instruction = () => {
     return decrypted;
   }
 
-  function checkCustomProtocol() {
-    const protocolHandled = false;
+  function checkFileProtocol() {
+    let iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
 
-    fetch("myprotocol://test")
-      .then(response => {
-        if (response.ok) {
-          console.log("Custom protocol is handled.");
-        } else {
-          console.log("Custom protocol is not handled.");
-        }
-      })
-      .catch(error => {
-        console.log("Custom protocol is not handled.", error);
-      });
+    let fileHandled = false;
+
+    iframe.onload = function () {
+      fileHandled = true;
+      document.body.removeChild(iframe);
+      console.log("File is handled.");
+    };
+
+    iframe.src = "file://C:\\Users\\PARAS\\AppData\\Local\\Programs\\electronapp\\Doselect Secure Browser.exe";
+
+    setTimeout(function () {
+      if (!fileHandled) {
+        console.log("File is not handled.");
+        document.body.removeChild(iframe);
+      }
+    }, 1000);
   }
 
   useEffect(() => {
