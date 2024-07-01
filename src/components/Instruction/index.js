@@ -39,28 +39,6 @@ const Instruction = () => {
     return decrypted;
   }
 
-  function checkFileProtocol() {
-    let iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
-
-    let fileHandled = false;
-
-    iframe.onload = function () {
-      fileHandled = true;
-      document.body.removeChild(iframe);
-      console.log("File is handled.");
-    };
-
-    iframe.src = "file://C:\\Users\\PARAS\\AppData\\Local\\Programs\\electronapp\\Doselect Secure Browser.exe";
-
-    setTimeout(function () {
-      if (!fileHandled) {
-        console.log("File is not handled.");
-        document.body.removeChild(iframe);
-      }
-    }, 1000);
-  }
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -96,8 +74,6 @@ const Instruction = () => {
     } else {
       setIsLoading(false);
     }
-
-    checkCustomProtocol();
   }, []);
 
   return (
