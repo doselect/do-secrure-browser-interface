@@ -39,6 +39,34 @@ const Instruction = () => {
     return decrypted;
   }
 
+  function checkCustomProtocol() {
+    let iframe = document.createElement("iframe");
+
+    iframe.style.display = "none";
+
+    document.body.appendChild(iframe);
+
+    let protocolHandled = false;
+
+    iframe.onload = function () {
+      protocolHandled = true;
+
+      document.body.removeChild(iframe);
+
+      console.log("Custom protocol is handled.");
+    };
+
+    iframe.src = "doselect://test";
+
+    setTimeout(function () {
+      if (!protocolHandled) {
+        console.log("Custom protocol is not handled.");
+
+        document.body.removeChild(iframe);
+      }
+    }, 1000);
+  }
+
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const ubaPayload = {
@@ -73,6 +101,8 @@ const Instruction = () => {
     } else {
       setIsLoading(false);
     }
+
+    checkCustomProtocol();
   }, []);
 
   return (
