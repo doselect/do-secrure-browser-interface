@@ -32,20 +32,19 @@ export function buildKillRunningProcessWinCommand(
 
 export function parseGetallProceessResult(data) {
   const newData = new Set(data.split("\r"));
-  console.log(newData, "before");
+
   const valuesToRemove = ['"Name"', "\n", ""];
 
   for (const value of valuesToRemove) {
     newData.delete(value);
   }
 
-  console.log(newData, "after");
   return newData;
 }
 
 export function parseMonitorInfo(data) {
   let filteredArr = data.split("\r");
-  console.log(filteredArr, "manish");
+
   // Remove all unwanted elements
   filteredArr = filteredArr.filter(
     item => item.trim() !== "" && !item.includes("------")

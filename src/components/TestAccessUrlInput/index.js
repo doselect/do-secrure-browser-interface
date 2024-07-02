@@ -27,14 +27,9 @@ const TestAccessUrlInput = () => {
         },
       });
       if (window.electron) {
-        console.log(window.electron);
         const { sendMsgToElectron } = window.electron;
-        sendMsgToElectron("SET_TEST_URL", { url: url }, res => {
-          console.log(res);
-        });
+        sendMsgToElectron("SET_TEST_URL", { url: url }, res => {});
       }
-    } else {
-      alert("Please enter a URL");
     }
   };
 

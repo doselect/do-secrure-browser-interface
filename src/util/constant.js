@@ -32,3 +32,7 @@ export const COMMAND_STATUS = {
   IN_PROGRESS: "inProgress",
   SUCCESS: "success",
 };
+
+export const getAppDownloadLink = () => {
+  return process.env.REACT_APP_DOWNLOAD_LINK;
+};

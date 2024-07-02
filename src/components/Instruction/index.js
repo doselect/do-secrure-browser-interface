@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -9,6 +9,7 @@ import CandidateEnv from "../../assets/icon/CandidateEnv.svg";
 import {
   DOWNLOAD_BROWSER_TEXT,
   DOWNLOAD_LINK_TEXT,
+  getAppDownloadLink,
   INSTRUCTION_TEXT,
   INSTRUCTION_TEXT_SUB_PARTS,
   PROCEED_TEST_TEXT,
@@ -39,7 +40,7 @@ const Instruction = () => {
     return decrypted;
   }
 
-
+  const assessmentLink = useMemo(() => {}, [candidateEmail]);
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const ubaPayload = {
@@ -67,7 +68,6 @@ const Instruction = () => {
     if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
-      // const l = caesarDecrypt(testUrl, 3);
       const l = decryptUrl(testUrl);
       proctoringUBALogger(candidateEmail, l);
       window.location.href = l;
@@ -136,13 +136,10 @@ const Instruction = () => {
                     payload: {
                       label: candidateEmail,
                       cta: "Download secure browser",
-                      source:
-                        "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/Doselect+Secure+Browser.exe",
+                      source: getAppDownloadLink(),
                     },
                   });
-                  window.open(
-                    "https://dev-doselect-static.s3.ap-southeast-1.amazonaws.com/secure-browser/Doselect+Secure+Browser.exe"
-                  );
+                  window.open(getAppDownloadLink());
                 }}
               >
                 {DOWNLOAD_BROWSER_TEXT}

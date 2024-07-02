@@ -16,9 +16,7 @@ const PretestConfigure = () => {
         frequency: 10000,
         event: "CONFIGURE_DISPLAY",
       };
-      exec(CONFIGURE, payload, res => {
-        console.log(res, "passes");
-      });
+      exec(CONFIGURE, payload, res => {});
     }
     if (window.electron) {
       const { exec } = window.electron;
@@ -28,20 +26,14 @@ const PretestConfigure = () => {
         frequency: 7000,
         event: "CONFIGURE_APPS",
       };
-      exec(CONFIGURE, payload, res => {
-        console.log(res, "passes");
-      });
+      exec(CONFIGURE, payload, res => {});
     }
 
     if (window.electron) {
       const { sendMsgToElectron } = window.electron;
-      sendMsgToElectron("START_TEST", {}, res => {
-        console.log(res);
-      });
+      sendMsgToElectron("START_TEST", {}, res => {});
 
-      sendMsgToElectron("STOP_KEYS", {}, res => {
-        console.log(res);
-      });
+      sendMsgToElectron("STOP_KEYS", {}, res => {});
     }
   }, []);
   return (
