@@ -43,7 +43,6 @@ const PretestConfigure = () => {
         title="Great! You’re all set to go!"
         subText="Taking you to Assessment..."
       />
-      <Footer />
     </>
   );
 };
