@@ -302,11 +302,11 @@ const Configure = () => {
                     </p>
                   </span>
                 </div>
-                <ul className="display-info">
+                {/* <ul className="display-info">
                   {displayInfo.map(process => (
                     <li key={process}>{process}</li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
             )}
             {systemChecks.isNotificationEnable && (
@@ -348,11 +348,11 @@ const Configure = () => {
                     </div>
                   </span>
                 </div>
-                <ul className="app-list">
+                {/* <ul className="app-list">
                   {Array.from(runningProcess).map(process => (
                     <li key={process}>{process}</li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
             )}
           </div>
