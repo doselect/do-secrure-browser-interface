@@ -55,7 +55,6 @@ const TestAccessUrlInput = () => {
           Open Test
         </button>
       </div>
-      <Footer />
     </>
   );
 };
