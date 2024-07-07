@@ -204,7 +204,19 @@ const Configure = () => {
     pageView({}, UBA_EVENT_NAME.proctoringTracker);
 
     // block finger gewstures
-    blockFingerGestures();
+
+    try {
+      blockFingerGestures();
+    } catch (err) {
+      ctaClick({
+        eventName: UBA_EVENT_NAME.proctoringTracker,
+        payload: {
+          label: candidateEmail,
+          cta: "Run commands error",
+          source: err?.message,
+        },
+      });
+    }
   }, []);
 
   const startTest = () => {
@@ -224,20 +236,31 @@ const Configure = () => {
   };
 
   useEffect(() => {
-    // run command to checks apps running
-    getAllRunningApps();
-    // run command to check notifications enable
-    getSystemNotificationInfo();
-    // run command to check multimonitors detected
-    getMonitorInfo();
-    ctaClick({
-      eventName: UBA_EVENT_NAME.proctoringTracker,
-      payload: {
-        label: candidateEmail,
-        cta: "Reverify",
-        source: testName,
-      },
-    });
+    try {
+      // run command to checks apps running
+      getAllRunningApps();
+      // run command to check notifications enable
+      getSystemNotificationInfo();
+      // run command to check multimonitors detected
+      getMonitorInfo();
+      ctaClick({
+        eventName: UBA_EVENT_NAME.proctoringTracker,
+        payload: {
+          label: candidateEmail,
+          cta: "Reverify",
+          source: testName,
+        },
+      });
+    } catch (err) {
+      ctaClick({
+        eventName: UBA_EVENT_NAME.proctoringTracker,
+        payload: {
+          label: candidateEmail,
+          cta: "Run commands error",
+          source: err?.message,
+        },
+      });
+    }
   }, [reverify]);
 
   useEffect(() => {

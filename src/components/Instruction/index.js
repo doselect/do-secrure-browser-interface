@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -40,7 +40,6 @@ const Instruction = () => {
     return decrypted;
   }
 
-  const assessmentLink = useMemo(() => {}, [candidateEmail]);
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const ubaPayload = {
@@ -68,11 +67,12 @@ const Instruction = () => {
     if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
-      const l = decryptUrl(testUrl);
-      proctoringUBALogger(candidateEmail, l);
-      window.location.href = l;
+      const decryptedUrl = decryptUrl(testUrl);
+      proctoringUBALogger("normal assessment flow", decryptedUrl);
+      window.location.href = decryptUrl;
     } else {
       setIsLoading(false);
+      proctoringUBALogger("secure browser flow", testUrl);
     }
   }, []);
 

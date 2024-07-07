@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UBA_EVENT_NAME } from "../../util/constant";
 import { ctaClick, initTracking, pageView } from "../../util/trackingUtils";
-import Footer from "../Footer";
 import Header from "../Header";
 import "./testAccessUrlInput.scss";
 
@@ -28,7 +27,7 @@ const TestAccessUrlInput = () => {
       });
       if (window.electron) {
         const { sendMsgToElectron } = window.electron;
-        sendMsgToElectron("SET_TEST_URL", { url: url }, res => {});
+        sendMsgToElectron("SET_TEST_URL", { url: url });
       }
     }
   };

@@ -7,33 +7,37 @@ import LoaderComponent from "../Loader";
 
 const PretestConfigure = () => {
   useEffect(() => {
-    if (window.electron) {
-      const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
-      const { exec } = window.electron;
-      const payload = {
-        cmd,
-        isRecurring: true,
-        frequency: 10000,
-        event: "CONFIGURE_DISPLAY",
-      };
-      exec(CONFIGURE, payload, res => {});
-    }
-    if (window.electron) {
-      const { exec } = window.electron;
-      const payload = {
-        cmd: buildGetRunningProcessWinCommand(),
-        isRecurring: true,
-        frequency: 7000,
-        event: "CONFIGURE_APPS",
-      };
-      exec(CONFIGURE, payload, res => {});
-    }
+    try {
+      if (window.electron) {
+        const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
+        const { exec } = window.electron;
+        const payload = {
+          cmd,
+          isRecurring: true,
+          frequency: 10000,
+          event: "CONFIGURE_DISPLAY",
+        };
+        exec(CONFIGURE, payload, res => {});
+      }
+      if (window.electron) {
+        const { exec } = window.electron;
+        const payload = {
+          cmd: buildGetRunningProcessWinCommand(),
+          isRecurring: true,
+          frequency: 7000,
+          event: "CONFIGURE_APPS",
+        };
+        exec(CONFIGURE, payload, res => {});
+      }
 
-    if (window.electron) {
-      const { sendMsgToElectron } = window.electron;
-      sendMsgToElectron("START_TEST", {}, res => {});
+      if (window.electron) {
+        const { sendMsgToElectron } = window.electron;
+        sendMsgToElectron("START_TEST", {}, res => {});
 
-      sendMsgToElectron("STOP_KEYS", {}, res => {});
+        sendMsgToElectron("STOP_KEYS", {}, res => {});
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, []);
   return (
