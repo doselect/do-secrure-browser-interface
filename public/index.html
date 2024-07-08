@@ -41,11 +41,10 @@
       };
       var script = document.createElement("script");
       script.async = true;
-      script.src =
-        '%REACT_APP_UB_SCRIPT_URL%';
+      script.src = process.env.REACT_APP_UB_SCRIPT_URL;
       script.onload = function () {
         ub.init({
-          beaconUrl: '%REACT_APP_UBA_BEACON_URL%',
+          beaconUrl: process.env.REACT_APP_UBA_BEACON_URL,
           bulkBeaconUrl: "https://logs.doselect.com/collectorapi/v1/uba/bulk",
           queuedEvents: queuedEvents,
           queuedSuperProps: queuedSuperProps,
