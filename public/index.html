@@ -42,10 +42,10 @@
       var script = document.createElement("script");
       script.async = true;
       script.src =
-        "https://assets.central.dev.sg1.chsh.in/scripts/ub_v1.16.min.js";
+        '%REACT_APP_UB_SCRIPT_URL%';
       script.onload = function () {
         ub.init({
-          beaconUrl: "https://test.collector.infoedge.com/uba",
+          beaconUrl: '%REACT_APP_UBA_BEACON_URL%',
           bulkBeaconUrl: "https://logs.doselect.com/collectorapi/v1/uba/bulk",
           queuedEvents: queuedEvents,
           queuedSuperProps: queuedSuperProps,
