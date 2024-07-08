@@ -72,7 +72,7 @@ const Instruction = () => {
         UBA_EVENT_NAME.LOG_INFO_EVENT,
         decryptedUrl + "- normal assessment flow"
       );
-      window.location.href = decryptUrl;
+      window.location.href = decryptedUrl;
     } else {
       setIsLoading(false);
       proctoringUBALogger(
