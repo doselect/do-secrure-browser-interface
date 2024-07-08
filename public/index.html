@@ -41,10 +41,11 @@
       };
       var script = document.createElement("script");
       script.async = true;
-      script.src = process.env.REACT_APP_UB_SCRIPT_URL;
+      script.src =
+        "https://assets.central.dev.sg1.chsh.in/scripts/ub_v1.16.min.js";
       script.onload = function () {
         ub.init({
-          beaconUrl: process.env.REACT_APP_UBA_BEACON_URL,
+          beaconUrl: "https://test.collector.infoedge.com/uba",
           bulkBeaconUrl: "https://logs.doselect.com/collectorapi/v1/uba/bulk",
           queuedEvents: queuedEvents,
           queuedSuperProps: queuedSuperProps,
