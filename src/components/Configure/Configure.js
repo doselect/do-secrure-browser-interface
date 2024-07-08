@@ -89,7 +89,7 @@ const Configure = () => {
 
         setSystemChecks(prev => ({
           ...prev,
-          restrictedAppsRunning: newData.length >= 1 ? true : false,
+          restrictedAppsRunning: newData.length >= 1,
         }));
       });
     }
