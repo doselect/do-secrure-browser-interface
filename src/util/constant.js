@@ -17,7 +17,9 @@ export const CONFIGURE_TITLE =
   "Please fix these issues to continue to assessment";
 
 export const UBA_EVENT_NAME = {
-  proctoringTracker: "proctoringTracker",
+  proctoringTracker: "proctoringLog",
+  LOG_INFO_EVENT: "secure-browser-info",
+  LOG_INFO_ERR: "secure-browser-error",
 };
 
 export const PAGE_ROUTE = {

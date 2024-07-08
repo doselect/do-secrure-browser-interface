@@ -68,11 +68,17 @@ const Instruction = () => {
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
       const decryptedUrl = decryptUrl(testUrl);
-      proctoringUBALogger("normal assessment flow", decryptedUrl);
+      proctoringUBALogger(
+        UBA_EVENT_NAME.LOG_INFO_EVENT,
+        decryptedUrl + "- normal assessment flow"
+      );
       window.location.href = decryptUrl;
     } else {
       setIsLoading(false);
-      proctoringUBALogger("secure browser flow", testUrl);
+      proctoringUBALogger(
+        UBA_EVENT_NAME.LOG_INFO_EVENT,
+        testUrl + "-secure browser assessment flow"
+      );
     }
   }, []);
 

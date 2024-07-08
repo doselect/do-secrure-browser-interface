@@ -20,7 +20,12 @@ import Header from "../Header";
 import "./configure.scss";
 import PretestConfigure from "../PretestConfigure";
 import LoaderComponent from "../Loader";
-import { ctaClick, initTracking, pageView } from "../../util/trackingUtils";
+import {
+  ctaClick,
+  initTracking,
+  pageView,
+  proctoringUBALogger,
+} from "../../util/trackingUtils";
 import { useLocation } from "react-router-dom";
 
 const Configure = () => {
@@ -208,14 +213,7 @@ const Configure = () => {
     try {
       blockFingerGestures();
     } catch (err) {
-      ctaClick({
-        eventName: UBA_EVENT_NAME.proctoringTracker,
-        payload: {
-          label: candidateEmail,
-          cta: "Run commands error",
-          source: err?.message,
-        },
-      });
+      proctoringUBALogger(UBA_EVENT_NAME.LOG_INFO_ERR, err.message);
     }
   }, []);
 
@@ -252,14 +250,7 @@ const Configure = () => {
         },
       });
     } catch (err) {
-      ctaClick({
-        eventName: UBA_EVENT_NAME.proctoringTracker,
-        payload: {
-          label: candidateEmail,
-          cta: "Run commands error",
-          source: err?.message,
-        },
-      });
+      proctoringUBALogger(UBA_EVENT_NAME.LOG_INFO_ERR, err.message);
     }
   }, [reverify]);
 
