@@ -375,10 +375,16 @@ const Configure = () => {
           </div>
         </div>
         <div className="instruction-footer">
-          <span className="help-container">
+          {/* <span className="help-container">
             If you need any more help, please{" "}
-            <span className="help-link">click here</span>
-          </span>
+            <a
+              href="https://help.doselect.com/support/solutions/folders/1060000320545"
+              className="help-link"
+              target="__blank"
+            >
+              click here
+            </a>
+          </span> */}
           <button
             disabled={isCommandsInProgress}
             className={`start-test primary ${
