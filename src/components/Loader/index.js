@@ -1,5 +1,6 @@
-import React from "react";
-import "./loader.scss";
+import React from 'react';
+import './loader.scss';
+
 const LoaderComponent = ({ title, subText }) => {
   return (
     <div className="spinner-title-container">
@@ -7,7 +8,7 @@ const LoaderComponent = ({ title, subText }) => {
       <div className="spinner-container">
         <div className="spinner">
           {[...Array(8)].map((_, index) => (
-            <div key={index} className={`circle circle-${index + 1}`}></div>
+            <div key={index} className={`circle circle-${index + 1}`} />
           ))}
         </div>
         <div className="spinner-text">{subText}</div>

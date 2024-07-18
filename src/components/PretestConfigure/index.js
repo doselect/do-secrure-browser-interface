@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { CONFIGURE } from "../../util/constant";
+import React, { useEffect } from 'react';
+import { CONFIGURE } from '../../util/constant';
 import {
   buildGetRunningProcessWinCommand,
   TotalDisplaysInfoCommand,
-} from "../../util/helper";
-import Header from "../Header";
-import LoaderComponent from "../Loader";
+} from '../../util/helper';
+import Header from '../Header';
+import LoaderComponent from '../Loader';
 
 const PretestConfigure = () => {
   useEffect(() => {
@@ -17,9 +17,9 @@ const PretestConfigure = () => {
           cmd,
           isRecurring: true,
           frequency: 10000,
-          event: "CONFIGURE_DISPLAY",
+          event: 'CONFIGURE_DISPLAY',
         };
-        exec(CONFIGURE, payload, res => {});
+        exec(CONFIGURE, payload, () => {});
       }
       if (window.electron) {
         const { exec } = window.electron;
@@ -27,16 +27,16 @@ const PretestConfigure = () => {
           cmd: buildGetRunningProcessWinCommand(),
           isRecurring: true,
           frequency: 7000,
-          event: "CONFIGURE_APPS",
+          event: 'CONFIGURE_APPS',
         };
-        exec(CONFIGURE, payload, res => {});
+        exec(CONFIGURE, payload, () => {});
       }
 
       if (window.electron) {
         const { sendMsgToElectron } = window.electron;
-        sendMsgToElectron("START_TEST", {}, () => {});
+        sendMsgToElectron('START_TEST', {}, () => {});
 
-        sendMsgToElectron("STOP_KEYS", {}, () => {});
+        sendMsgToElectron('STOP_KEYS', {}, () => {});
       }
     } catch (err) {
       console.log(err);

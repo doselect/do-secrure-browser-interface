@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import Footer from "../Footer";
-import Header from "../Header";
-import Warning from "../../assets/icon/Warning.svg";
-import FileDownload from "../../assets/icon/FileDownload.svg";
-import Proceed from "../../assets/icon/Proceed.svg";
-import CandidateEnv from "../../assets/icon/CandidateEnv.svg";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Footer from '../Footer';
+import Header from '../Header';
+import Warning from '../../assets/icon/Warning.svg';
+import FileDownload from '../../assets/icon/FileDownload.svg';
+import Proceed from '../../assets/icon/Proceed.svg';
+import CandidateEnv from '../../assets/icon/CandidateEnv.svg';
 import {
   DOWNLOAD_BROWSER_TEXT,
   DOWNLOAD_LINK_TEXT,
@@ -14,15 +14,15 @@ import {
   INSTRUCTION_TEXT_SUB_PARTS,
   PROCEED_TEST_TEXT,
   UBA_EVENT_NAME,
-} from "../../util/constant";
-import "./instruction.scss";
-import LoaderComponent from "../Loader";
-import { getOSinfo, removeCharsByVowelCount } from "../../util/helper";
+} from '../../util/constant';
+import './instruction.scss';
+import LoaderComponent from '../Loader';
+import { getOSinfo, removeCharsByVowelCount } from '../../util/helper';
 import {
   ctaClick,
   initTracking,
   proctoringUBALogger,
-} from "../../util/trackingUtils";
+} from '../../util/trackingUtils';
 
 const Instruction = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,10 +30,10 @@ const Instruction = () => {
   // Extract query parameters from the location object
   const queryParams = new URLSearchParams(location.search);
   // Get the value of a specific query parameter
-  const testUrl = queryParams.get("dsUrl");
-  const testName = queryParams.get("testName");
+  const testUrl = queryParams.get('dsUrl');
+  const testName = queryParams.get('testName');
 
-  const candidateEmail = queryParams.get("email");
+  const candidateEmail = queryParams.get('email');
 
   function decryptUrl(encryptedUrl) {
     const decrypted = removeCharsByVowelCount(encryptedUrl, candidateEmail);
@@ -42,7 +42,7 @@ const Instruction = () => {
 
   useEffect(() => {
     const ubaPayload = {
-      pageName: "Instruction Page",
+      pageName: 'Instruction Page',
     };
     const keyNames = {
       loggedinUserEmailId: candidateEmail,
@@ -52,18 +52,18 @@ const Instruction = () => {
     initTracking(ubaPayload, keyNames);
     const { osType, deviceType } = getOSinfo();
 
-    if (deviceType !== "Desktop" || osType !== "Windows") {
+    if (deviceType !== 'Desktop' || osType !== 'Windows') {
       const decryptedUrl = decryptUrl(testUrl);
       proctoringUBALogger(
         UBA_EVENT_NAME.LOG_INFO_EVENT,
-        decryptedUrl + "- normal assessment flow"
+        `${decryptedUrl}- normal assessment flow`
       );
       window.location.href = decryptedUrl;
     } else {
       setIsLoading(false);
       proctoringUBALogger(
         UBA_EVENT_NAME.LOG_INFO_EVENT,
-        testUrl + "-secure browser assessment flow"
+        `${testUrl}-secure browser assessment flow`
       );
     }
   }, []);
@@ -102,13 +102,14 @@ const Instruction = () => {
             <div className="title">{DOWNLOAD_LINK_TEXT}</div>
             <div className="links-container">
               <button
+                type="button"
                 className="test-link primary"
                 onClick={() => {
                   ctaClick({
                     eventName: UBA_EVENT_NAME.proctoringTracker,
                     payload: {
                       label: candidateEmail,
-                      cta: "Download secure browser",
+                      cta: 'Download secure browser',
                       source: `Doselect://?email=${candidateEmail}&testName=${testName}&dsUrl=${testUrl}`,
                     },
                   });
@@ -121,13 +122,14 @@ const Instruction = () => {
                 <img src={Proceed} alt="proceed" />
               </button>
               <button
+                type="button"
                 className="download secondary"
                 onClick={() => {
                   ctaClick({
                     eventName: UBA_EVENT_NAME.proctoringTracker,
                     payload: {
                       label: candidateEmail,
-                      cta: "Download secure browser",
+                      cta: 'Download secure browser',
                       source: getAppDownloadLink(),
                     },
                   });

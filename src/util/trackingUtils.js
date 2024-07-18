@@ -1,4 +1,4 @@
-import { UBA_EVENT_NAME } from "./constant";
+import { UBA_EVENT_NAME } from './constant';
 
 // Initializing the UBA
 export const initTracking = (mainParams = {}, keyNames = {}) => {
@@ -7,7 +7,7 @@ export const initTracking = (mainParams = {}, keyNames = {}) => {
 };
 
 // Generic function for events call
-export const doTracking = ubaTrackingData => {
+export const doTracking = (ubaTrackingData) => {
   const payload = { uba: ubaTrackingData };
   if (!ubaTrackingData) {
     payload.uba = {
@@ -26,7 +26,7 @@ export const pageView = (payload = {}, eventName) => {
   const trackingData = {
     eventName,
     keyNames: {
-      actionType: "Pageview",
+      actionType: 'Pageview',
       ...payload,
     },
   };
@@ -37,7 +37,7 @@ export const ctaClick = ({ payload = {}, eventName }) => {
   const trackingData = {
     eventName,
     keyNames: {
-      actionType: "click",
+      actionType: 'click',
       ...payload,
     },
   };
@@ -49,9 +49,9 @@ export const proctoringUBALogger = (verbose, label, keyNames) => {
     eventName: UBA_EVENT_NAME.proctoringTracker,
     keyNames: {
       ...keyNames,
-      actionType: "view",
+      actionType: 'view',
       label,
-      userType: "candidate",
+      userType: 'candidate',
       verbose,
     },
   };

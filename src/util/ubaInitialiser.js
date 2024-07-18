@@ -83,17 +83,17 @@ const tracking = (function () {
     };
   };
 
-  const doTracking = trackingData => {
+  const doTracking = (trackingData) => {
     let ubaObj;
 
     if (trackingData.uba && trackingData.uba.constructor === Array) {
       const ubaArr = [];
       const eventslen = trackingData.uba.length;
-      trackingData.uba.forEach(obj => {
+      trackingData.uba.forEach((obj) => {
         const tempObj = {
           eventName: obj.eventName,
           ...populateUbaObj(pageName, commonUbaData, obj.keyNames),
-          eventType: "bulk",
+          eventType: 'bulk',
           eventslen,
         };
         ubaArr.push(tempObj);
