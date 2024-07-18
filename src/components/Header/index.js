@@ -1,12 +1,12 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
-import DoselectLogo from "../../assets/icon/DoselectLogo.svg";
-import "./header.scss";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import DoselectLogo from '../../assets/icon/DoselectLogo.svg';
+import './header.scss';
 
 const Header = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const testName = queryParams.get("testName") || "";
+  const testName = queryParams.get('testName') || '';
 
   return (
     <div className="header-container">

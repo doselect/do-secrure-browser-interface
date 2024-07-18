@@ -1,41 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import {
   COMMAND_STATUS,
   CONFIGURE,
   CONFIGURE_TITLE,
+  EVENTS_TO_ELECTRON,
+  PAGE_ROUTE,
   UBA_EVENT_NAME,
-} from "../../util/constant";
+} from '../../util/constant';
 import {
   buildGetRunningProcessWinCommand,
   buildKillRunningProcessWinCommand,
+  FingerGesturesCommand,
+  NotificationInfoCommand,
   parseGetallProceessResult,
   parseMonitorInfo,
   parseSystemNotificationResult,
-} from "../../util/helper";
-import ErrorOutline from "../../assets/icon/ErrorOutline.svg";
-import candidateEnv2 from "../../assets/icon/candidateEnv2.svg";
+  TotalDisplaysInfoCommand,
+} from '../../util/helper';
+import ErrorOutline from '../../assets/icon/ErrorOutline.svg';
+import candidateEnv2 from '../../assets/icon/candidateEnv2.svg';
 
-import Footer from "../Footer";
-import Header from "../Header";
-import "./configure.scss";
-import PretestConfigure from "../PretestConfigure";
-import LoaderComponent from "../Loader";
+import Footer from '../Footer';
+import Header from '../Header';
+import './configure.scss';
+import PretestConfigure from '../PretestConfigure';
+import LoaderComponent from '../Loader';
 import {
   ctaClick,
   initTracking,
   pageView,
   proctoringUBALogger,
-} from "../../util/trackingUtils";
-import { useLocation } from "react-router-dom";
+} from '../../util/trackingUtils';
 
 const Configure = () => {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
 
-  const testName = queryParams.get("testName");
+  const testName = queryParams.get('testName');
 
-  const candidateEmail = queryParams.get("email");
+  const candidateEmail = queryParams.get('email');
 
   const [systemChecks, setSystemChecks] = useState({
     isNotificationEnable: null,
@@ -51,7 +57,7 @@ const Configure = () => {
 
   const [checked, setChecked] = useState(false);
 
-  const [btntext, setbtnText] = useState("Re-Verify");
+  const btntext = 'Re-Verify';
   const [reverify, setReverify] = useState(false);
 
   const [runningProcess, setRunningProcess] = useState(new Set());
@@ -61,13 +67,13 @@ const Configure = () => {
     COMMAND_STATUS.IN_PROGRESS
   );
 
-  const handleCheckboxChange = event => {
+  const handleCheckboxChange = (event) => {
     setChecked(event.target.checked);
   };
 
   const getAllRunningApps = () => {
     if (window.electron) {
-      setCommandStatus(prev => ({
+      setCommandStatus((prev) => ({
         ...prev,
         runningApps: COMMAND_STATUS.IN_PROGRESS,
       }));
@@ -76,18 +82,18 @@ const Configure = () => {
         cmd: buildGetRunningProcessWinCommand(),
         isRecurring: false,
         frequency: 0,
-        event: "CONFIGURE_APPS",
+        event: 'CONFIGURE_APPS',
       };
-      exec(CONFIGURE, payload, res => {
+      exec(CONFIGURE, payload, (res) => {
         const newData = parseGetallProceessResult(res.result);
 
         setRunningProcess(newData);
-        setCommandStatus(prev => ({
+        setCommandStatus((prev) => ({
           ...prev,
           runningApps: COMMAND_STATUS.SUCCESS,
         }));
 
-        setSystemChecks(prev => ({
+        setSystemChecks((prev) => ({
           ...prev,
           restrictedAppsRunning: newData.length >= 1,
         }));
@@ -101,9 +107,9 @@ const Configure = () => {
       const payload = {
         cmd: buildKillRunningProcessWinCommand(),
       };
-      exec(CONFIGURE, payload, res => {
+      exec(CONFIGURE, payload, () => {
         setRunningProcess(new Set());
-        setSystemChecks(prev => ({
+        setSystemChecks((prev) => ({
           ...prev,
           restrictedAppsRunning: false,
         }));
@@ -113,22 +119,22 @@ const Configure = () => {
 
   const getMonitorInfo = () => {
     if (window.electron) {
-      setCommandStatus(prev => ({
+      setCommandStatus((prev) => ({
         ...prev,
         monitor: COMMAND_STATUS.IN_PROGRESS,
       }));
-      const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
+      const cmd = TotalDisplaysInfoCommand;
       const { exec } = window.electron;
       const payload = {
         cmd,
         isRecurring: false,
         frequency: 0,
-        event: "CONFIGURE_DISPLAY",
+        event: EVENTS_TO_ELECTRON.CONFIGURE_DISPLAY,
       };
-      exec(CONFIGURE, payload, res => {
+      exec(CONFIGURE, payload, (res) => {
         const filteredArr = parseMonitorInfo(res.result);
         setDisplayInfo(filteredArr);
-        setCommandStatus(prev => ({
+        setCommandStatus((prev) => ({
           ...prev,
           monitor: COMMAND_STATUS.SUCCESS,
         }));
@@ -138,19 +144,19 @@ const Configure = () => {
 
   const getSystemNotificationInfo = () => {
     if (window.electron) {
-      setCommandStatus(prev => ({
+      setCommandStatus((prev) => ({
         ...prev,
         notification: COMMAND_STATUS.IN_PROGRESS,
       }));
-      const cmd = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
+      const cmd = NotificationInfoCommand;
       const { exec } = window.electron;
       const payload = {
         cmd,
       };
-      exec(CONFIGURE, payload, res => {
+      exec(CONFIGURE, payload, (res) => {
         if (res.error) {
-          setCommandStatus(prev => ({ ...prev, notification: "error" }));
-          setSystemChecks(prev => ({
+          setCommandStatus((prev) => ({ ...prev, notification: 'error' }));
+          setSystemChecks((prev) => ({
             ...prev,
             isNotificationEnable: true,
           }));
@@ -158,23 +164,23 @@ const Configure = () => {
         }
         const toastEnabledValue = parseSystemNotificationResult(res.result);
         if (toastEnabledValue) {
-          if (toastEnabledValue === "0x0") {
-            setSystemChecks(prev => ({
+          if (toastEnabledValue === '0x0') {
+            setSystemChecks((prev) => ({
               ...prev,
               isNotificationEnable: false,
             }));
-          } else if (toastEnabledValue === "0x1") {
-            setSystemChecks(prev => ({
+          } else if (toastEnabledValue === '0x1') {
+            setSystemChecks((prev) => ({
               ...prev,
               isNotificationEnable: true,
             }));
           } else {
-            setSystemChecks(prev => ({
+            setSystemChecks((prev) => ({
               ...prev,
               isNotificationEnable: true,
             }));
           }
-          setCommandStatus(prev => ({
+          setCommandStatus((prev) => ({
             ...prev,
             notification: COMMAND_STATUS.SUCCESS,
           }));
@@ -185,21 +191,21 @@ const Configure = () => {
 
   const blockFingerGestures = () => {
     if (window.electron) {
-      const cmd = `reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v ThreeFingerSlideEnabled /t REG_DWORD /d 0 /f && reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v FourFingerSlideEnabled /t REG_DWORD /d 0 /f && taskkill /f /im explorer.exe && start explorer.exe`;
+      const cmd = FingerGesturesCommand;
       const { exec } = window.electron;
       const payload = {
         cmd,
         isRecurring: false,
         frequency: 0,
-        event: "BLOCK_GESTURES",
+        event: EVENTS_TO_ELECTRON.BLOCK_GESTURES,
       };
-      exec(CONFIGURE, payload, res => {});
+      exec(CONFIGURE, payload, () => {});
     }
   };
 
   useEffect(() => {
     const ubaPayload = {
-      pageName: "Configuration Page",
+      pageName: PAGE_ROUTE.CONFIGURE,
     };
     const keyNames = {
       loggedinUserEmailId: candidateEmail,
@@ -225,12 +231,12 @@ const Configure = () => {
     });
 
     setCommandStatus({
-      runningApps: "notExecuted",
-      notification: "notExecuted",
-      monitor: "notExecuted",
+      runningApps: 'notExecuted',
+      notification: 'notExecuted',
+      monitor: 'notExecuted',
     });
 
-    setReverify(prev => !prev);
+    setReverify((prev) => !prev);
   };
 
   useEffect(() => {
@@ -245,7 +251,7 @@ const Configure = () => {
         eventName: UBA_EVENT_NAME.proctoringTracker,
         payload: {
           label: candidateEmail,
-          cta: "Reverify",
+          cta: 'Reverify',
           source: testName,
         },
       });
@@ -256,14 +262,14 @@ const Configure = () => {
 
   useEffect(() => {
     if (runningProcess.size >= 1) {
-      setSystemChecks(prev => ({
+      setSystemChecks((prev) => ({
         ...prev,
         restrictedAppsRunning: true,
       }));
 
       killRunningProcess();
     } else {
-      setSystemChecks(prev => ({
+      setSystemChecks((prev) => ({
         ...prev,
         restrictedAppsRunning:
           prev.restrictedAppsRunning === null ? null : false,
@@ -273,12 +279,12 @@ const Configure = () => {
 
   useEffect(() => {
     if (displayInfo.length === 1) {
-      setSystemChecks(prev => ({
+      setSystemChecks((prev) => ({
         ...prev,
         multiMonitorsPresent: false,
       }));
     } else {
-      setSystemChecks(prev => ({
+      setSystemChecks((prev) => ({
         ...prev,
         multiMonitorsPresent: true,
       }));
@@ -306,7 +312,7 @@ const Configure = () => {
             {systemChecks.multiMonitorsPresent && (
               <div className="configure-display-container">
                 <div className="title">
-                  <img src={ErrorOutline} />
+                  <img alt="error-outline" src={ErrorOutline} />
                   <span className="info-desc-container">
                     <span className="info">Disconnect External Monitor </span>
                     <p className="description">
@@ -326,7 +332,7 @@ const Configure = () => {
             {systemChecks.isNotificationEnable && (
               <div className="configure-notification-container">
                 <div className="title">
-                  <img src={ErrorOutline} />
+                  <img alt="error-outline" src={ErrorOutline} />
                   <span className="info-desc-container">
                     <span className="info">Disable System Notifications </span>
                     <p className="description">
@@ -341,16 +347,17 @@ const Configure = () => {
             {systemChecks.restrictedAppsRunning && (
               <div className="configure-app-container">
                 <div className="title">
-                  <img src={ErrorOutline} />
+                  <img alt="error-outline" src={ErrorOutline} />
                   <span className="info-desc-container">
                     <span className="info">Open Applications Detected </span>
                     <p className="description">
-                      We've detected multiple open applications on your system.
-                      Please save your work and click "Re-Verify" to proceed, or
-                      click the checkbox for us to close them for you.
+                      We&apos;ve detected multiple open applications on your
+                      system. Please save your work and click
+                      &quot;Re-Verify&quot; to proceed, or click the checkbox
+                      for us to close them for you.
                     </p>
                     <div>
-                      <label>
+                      <label htmlFor="teram-condition">
                         <input
                           type="checkbox"
                           checked={checked}
@@ -371,7 +378,7 @@ const Configure = () => {
             )}
           </div>
           <div>
-            <img src={candidateEnv2} alt="candidateEnv2" />
+            <img alt="candidate-env" src={candidateEnv2} />
           </div>
         </div>
         <div className="instruction-footer">
@@ -386,9 +393,10 @@ const Configure = () => {
             </a>
           </span> */}
           <button
+            type="button"
             disabled={isCommandsInProgress}
             className={`start-test primary ${
-              isCommandsInProgress ? "disable" : ""
+              isCommandsInProgress ? 'disable' : ''
             }`}
             onClick={startTest}
           >

@@ -1,0 +1,12 @@
+FROM node:14
+
+
+WORKDIR /webapps/do-secure-browser-interface
+
+COPY . /webapps/do-secure-browser-interface
+
+RUN npm install
+
+RUN rm -rf ~/.ssh
+
+CMD ["npm","start"]

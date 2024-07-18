@@ -1,3 +1,12 @@
+// Define common variables
+$primary-color: #007bff;
+$primary-hover-color: #0056b3;
+$border-color: #ccc;
+$focus-border-color: #66afe9;
+$input-padding: 8px;
+$font-size: 16px;
+$border-radius: 4px;
+
 .input-container {
   display: flex;
   align-items: center;
@@ -5,36 +14,35 @@
   top: 50%;
   left: 50%;
   width: 50%;
-  margin: auto;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
 }
 
 .input-box {
   flex: 1;
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 4px 0 0 4px;
-  border: 1px solid #ccc;
+  padding: $input-padding;
+  font-size: $font-size;
+  border-radius: $border-radius 0 0 $border-radius;
+  border: 1px solid $border-color;
   border-right: none;
 
   &:focus {
     outline: none;
-    border-color: #66afe9;
+    border-color: $focus-border-color;
   }
 }
 
 .open-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  border-radius: 0 4px 4px 0;
-  border: 1px solid #ccc;
-  background-color: #007bff;
+  padding: $input-padding 16px;
+  font-size: $font-size;
+  border-radius: 0 $border-radius $border-radius 0;
+  border: 1px solid $border-color;
+  background-color: $primary-color;
   color: white;
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: $primary-hover-color;
   }
 
   &:focus {

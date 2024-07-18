@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
-import { CONFIGURE } from "../../util/constant";
-import { buildGetRunningProcessWinCommand } from "../../util/helper";
-import Footer from "../Footer";
-import Header from "../Header";
-import LoaderComponent from "../Loader";
+import React, { useEffect } from 'react';
+import { CONFIGURE } from '../../util/constant';
+import {
+  buildGetRunningProcessWinCommand,
+  TotalDisplaysInfoCommand,
+} from '../../util/helper';
+import Header from '../Header';
+import LoaderComponent from '../Loader';
 
 const PretestConfigure = () => {
   useEffect(() => {
     try {
       if (window.electron) {
-        const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
+        const cmd = TotalDisplaysInfoCommand;
         const { exec } = window.electron;
         const payload = {
           cmd,
           isRecurring: true,
           frequency: 10000,
-          event: "CONFIGURE_DISPLAY",
+          event: 'CONFIGURE_DISPLAY',
         };
-        exec(CONFIGURE, payload, res => {});
+        exec(CONFIGURE, payload, () => {});
       }
       if (window.electron) {
         const { exec } = window.electron;
@@ -25,16 +27,16 @@ const PretestConfigure = () => {
           cmd: buildGetRunningProcessWinCommand(),
           isRecurring: true,
           frequency: 7000,
-          event: "CONFIGURE_APPS",
+          event: 'CONFIGURE_APPS',
         };
-        exec(CONFIGURE, payload, res => {});
+        exec(CONFIGURE, payload, () => {});
       }
 
       if (window.electron) {
         const { sendMsgToElectron } = window.electron;
-        sendMsgToElectron("START_TEST", {}, res => {});
+        sendMsgToElectron('START_TEST', {}, () => {});
 
-        sendMsgToElectron("STOP_KEYS", {}, res => {});
+        sendMsgToElectron('STOP_KEYS', {}, () => {});
       }
     } catch (err) {
       console.log(err);
