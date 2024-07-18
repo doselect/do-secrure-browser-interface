@@ -3,14 +3,19 @@ import {
   COMMAND_STATUS,
   CONFIGURE,
   CONFIGURE_TITLE,
+  EVENTS_TO_ELECTRON,
+  PAGE_ROUTE,
   UBA_EVENT_NAME,
 } from "../../util/constant";
 import {
   buildGetRunningProcessWinCommand,
   buildKillRunningProcessWinCommand,
+  FingerGesturesCommand,
+  NotificationInfoCommand,
   parseGetallProceessResult,
   parseMonitorInfo,
   parseSystemNotificationResult,
+  TotalDisplaysInfoCommand,
 } from "../../util/helper";
 import ErrorOutline from "../../assets/icon/ErrorOutline.svg";
 import candidateEnv2 from "../../assets/icon/candidateEnv2.svg";
@@ -117,13 +122,13 @@ const Configure = () => {
         ...prev,
         monitor: COMMAND_STATUS.IN_PROGRESS,
       }));
-      const cmd = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
+      const cmd = TotalDisplaysInfoCommand;
       const { exec } = window.electron;
       const payload = {
         cmd,
         isRecurring: false,
         frequency: 0,
-        event: "CONFIGURE_DISPLAY",
+        event: EVENTS_TO_ELECTRON.CONFIGURE_DISPLAY,
       };
       exec(CONFIGURE, payload, res => {
         const filteredArr = parseMonitorInfo(res.result);
@@ -142,7 +147,7 @@ const Configure = () => {
         ...prev,
         notification: COMMAND_STATUS.IN_PROGRESS,
       }));
-      const cmd = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
+      const cmd = NotificationInfoCommand;
       const { exec } = window.electron;
       const payload = {
         cmd,
@@ -185,21 +190,21 @@ const Configure = () => {
 
   const blockFingerGestures = () => {
     if (window.electron) {
-      const cmd = `reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v ThreeFingerSlideEnabled /t REG_DWORD /d 0 /f && reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v FourFingerSlideEnabled /t REG_DWORD /d 0 /f && taskkill /f /im explorer.exe && start explorer.exe`;
+      const cmd = FingerGesturesCommand;
       const { exec } = window.electron;
       const payload = {
         cmd,
         isRecurring: false,
         frequency: 0,
-        event: "BLOCK_GESTURES",
+        event: EVENTS_TO_ELECTRON.BLOCK_GESTURES,
       };
-      exec(CONFIGURE, payload, res => {});
+      exec(CONFIGURE, payload, () => {});
     }
   };
 
   useEffect(() => {
     const ubaPayload = {
-      pageName: "Configuration Page",
+      pageName: PAGE_ROUTE.CONFIGURE,
     };
     const keyNames = {
       loggedinUserEmailId: candidateEmail,

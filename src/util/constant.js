@@ -38,3 +38,8 @@ export const COMMAND_STATUS = {
 export const getAppDownloadLink = () => {
   return process.env.REACT_APP_DOWNLOAD_LINK;
 };
+export const EVENTS_TO_ELECTRON = {
+  SET_TEST_URL: "SET_TEST_URL",
+  CONFIGURE_DISPLAY: "CONFIGURE_DISPLAY",
+  BLOCK_GESTURES: "BLOCK_GESTURES",
+};

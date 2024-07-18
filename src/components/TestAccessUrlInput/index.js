@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { UBA_EVENT_NAME } from "../../util/constant";
+import {
+  EVENTS_TO_ELECTRON,
+  PAGE_ROUTE,
+  UBA_EVENT_NAME,
+} from "../../util/constant";
 import { ctaClick, initTracking, pageView } from "../../util/trackingUtils";
 import Header from "../Header";
 import "./testAccessUrlInput.scss";
@@ -9,7 +13,7 @@ const TestAccessUrlInput = () => {
 
   useEffect(() => {
     const ubaPayload = {
-      pageName: "Test Route",
+      pageName: PAGE_ROUTE.TEST_ROUTE,
     };
     initTracking(ubaPayload, {});
     pageView({}, UBA_EVENT_NAME.proctoringTracker);
@@ -27,7 +31,7 @@ const TestAccessUrlInput = () => {
       });
       if (window.electron) {
         const { sendMsgToElectron } = window.electron;
-        sendMsgToElectron("SET_TEST_URL", { url: url });
+        sendMsgToElectron(EVENTS_TO_ELECTRON.SET_TEST_URL, { url: url });
       }
     }
   };
@@ -46,7 +50,7 @@ const TestAccessUrlInput = () => {
           type="text"
           placeholder="Paste test access url here...."
           value={url}
-          onChange={e => setUrl(e.target.value)}
+          onChange={e => setUrl(e?.target?.value)}
           onKeyPress={handleKeyPress}
           className="input-box"
         />

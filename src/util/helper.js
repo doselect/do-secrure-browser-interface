@@ -89,3 +89,25 @@ export function removeCharsByVowelCount(text, string) {
     return text;
   }
 }
+
+export const TotalDisplaysInfoCommand = `powershell -command "Get-PnpDevice -Class monitor -presentOnly"`;
+export const NotificationInfoCommand = `reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications" /v ToastEnabled`;
+export const FingerGesturesCommand = `reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v ThreeFingerSlideEnabled /t REG_DWORD /d 0 /f && reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PrecisionTouchPad" /v FourFingerSlideEnabled /t REG_DWORD /d 0 /f && taskkill /f /im explorer.exe && start explorer.exe`;
+export const getOSinfo = () => {
+  const userAgent = navigator.userAgent;
+  let deviceType = "Unknown";
+  if (/Mobi|Android/i.test(userAgent)) {
+    deviceType = "Mobile";
+  } else {
+    deviceType = "Desktop";
+  }
+
+  let osType = "Unknown";
+  if (userAgent.indexOf("Win") !== -1) osType = "Windows";
+  if (userAgent.indexOf("Mac") !== -1) osType = "MacOS";
+  if (userAgent.indexOf("Linux") !== -1) osType = "Linux";
+  if (userAgent.indexOf("Android") !== -1) osType = "Android";
+  if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
+
+  return { osType, deviceType };
+};

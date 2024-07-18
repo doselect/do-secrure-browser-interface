@@ -17,7 +17,7 @@ import {
 } from "../../util/constant";
 import "./instruction.scss";
 import LoaderComponent from "../Loader";
-import { removeCharsByVowelCount } from "../../util/helper";
+import { getOSinfo, removeCharsByVowelCount } from "../../util/helper";
 import {
   ctaClick,
   initTracking,
@@ -41,7 +41,6 @@ const Instruction = () => {
   }
 
   useEffect(() => {
-    const userAgent = navigator.userAgent;
     const ubaPayload = {
       pageName: "Instruction Page",
     };
@@ -51,20 +50,7 @@ const Instruction = () => {
     };
 
     initTracking(ubaPayload, keyNames);
-
-    let deviceType = "Unknown";
-    if (/Mobi|Android/i.test(userAgent)) {
-      deviceType = "Mobile";
-    } else {
-      deviceType = "Desktop";
-    }
-
-    let osType = "Unknown";
-    if (userAgent.indexOf("Win") !== -1) osType = "Windows";
-    if (userAgent.indexOf("Mac") !== -1) osType = "MacOS";
-    if (userAgent.indexOf("Linux") !== -1) osType = "Linux";
-    if (userAgent.indexOf("Android") !== -1) osType = "Android";
-    if (userAgent.indexOf("like Mac") !== -1) osType = "iOS";
+    const { osType, deviceType } = getOSinfo();
 
     if (deviceType !== "Desktop" || osType !== "Windows") {
       const decryptedUrl = decryptUrl(testUrl);
@@ -73,7 +59,6 @@ const Instruction = () => {
         decryptedUrl + "- normal assessment flow"
       );
       window.location.href = decryptedUrl;
-      // setIsLoading(false);
     } else {
       setIsLoading(false);
       proctoringUBALogger(
