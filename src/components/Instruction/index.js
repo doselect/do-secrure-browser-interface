@@ -52,13 +52,17 @@ const Instruction = () => {
     initTracking(ubaPayload, keyNames);
     const { osType, deviceType } = getOSinfo();
 
-    if (deviceType !== 'Desktop' || osType !== 'Windows') {
+    if (
+      deviceType !== 'Desktop' ||
+      (osType !== 'Windows' && osType !== 'Linux')
+    ) {
       const decryptedUrl = decryptUrl(testUrl);
       proctoringUBALogger(
         UBA_EVENT_NAME.LOG_INFO_EVENT,
         `${decryptedUrl}- normal assessment flow`
       );
       window.location.href = decryptedUrl;
+      // setIsLoading(false);
     } else {
       setIsLoading(false);
       proctoringUBALogger(
