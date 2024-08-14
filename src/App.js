@@ -5,6 +5,7 @@ import Instruction from './components/Instruction';
 import TestAccessUrlInput from './components/TestAccessUrlInput';
 import { PAGE_ROUTE } from './util/constant';
 import './util/ubaInitialiser';
+import DownloadApp from './components/DownloadApp';
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,10 @@ function App() {
     {
       path: PAGE_ROUTE.TEST_ROUTE,
       element: <TestAccessUrlInput />,
+    },
+    {
+      path: PAGE_ROUTE.DOWNLOAD_APP,
+      element: <DownloadApp />,
     },
   ]);
   return <RouterProvider router={router} />;

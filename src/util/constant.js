@@ -26,6 +26,7 @@ export const PAGE_ROUTE = {
   CONFIGURE: 'configure',
   INSTRUCTION: 'instruction',
   TEST_ROUTE: 'testRoute',
+  DOWNLOAD_APP: 'downloadApp',
 };
 
 export const COMMAND_STATUS = {
@@ -35,8 +36,11 @@ export const COMMAND_STATUS = {
   SUCCESS: 'success',
 };
 
-export const getAppDownloadLink = () => {
-  return process.env.REACT_APP_DOWNLOAD_LINK;
+export const getAppDownloadLink = (os) => {
+  if (os === 'Linux') {
+    return process.env.REACT_APP_DOWNLOAD_LINK_LINUX;
+  }
+  return process.env.REACT_APP_DOWNLOAD_LINK_WIN;
 };
 export const EVENTS_TO_ELECTRON = {
   SET_TEST_URL: 'SET_TEST_URL',

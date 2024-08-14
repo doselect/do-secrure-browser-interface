@@ -34,6 +34,7 @@ const Instruction = () => {
   const testName = queryParams.get('testName');
 
   const candidateEmail = queryParams.get('email');
+  const { osType, deviceType } = getOSinfo();
 
   function decryptUrl(encryptedUrl) {
     const decrypted = removeCharsByVowelCount(encryptedUrl, candidateEmail);
@@ -50,7 +51,6 @@ const Instruction = () => {
     };
 
     initTracking(ubaPayload, keyNames);
-    const { osType, deviceType } = getOSinfo();
 
     if (
       deviceType !== 'Desktop' ||
@@ -134,10 +134,10 @@ const Instruction = () => {
                     payload: {
                       label: candidateEmail,
                       cta: 'Download secure browser',
-                      source: getAppDownloadLink(),
+                      source: getAppDownloadLink(osType),
                     },
                   });
-                  window.open(getAppDownloadLink());
+                  window.open(getAppDownloadLink(osType));
                 }}
               >
                 {DOWNLOAD_BROWSER_TEXT}
