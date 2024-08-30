@@ -45,15 +45,15 @@ const SystemInfoModal = ({ setSubsytemInfo }) => {
             />
             My device is Linux RPM (Red Hat, Fedora, SUSE)
           </label>
-          <button
-            type="button"
-            // disabled={isCommandsInProgress}
-            className="configure-sub-os"
-            onClick={configureSubOs}
-          >
-            CONFIRM
-          </button>
         </div>
+        <button
+          type="button"
+          disabled={!selectedCheckbox}
+          className={`configure-sub-os ${!selectedCheckbox ? 'disable' : ''}`}
+          onClick={configureSubOs}
+        >
+          CONFIRM
+        </button>
       </div>
     </div>
   );
