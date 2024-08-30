@@ -1,0 +1,52 @@
+.system-info-modal-container {
+  width: 90%;
+  margin: 20px auto 24px;
+  padding: 0 94px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 16px;
+  height: calc(100vh - 120px);
+  .candidate-env {
+    width: 393.65px;
+    height: 225px;
+  }
+  .info-container {
+    .title {
+      font-family: Lato;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 36px;
+      text-align: left;
+    }
+    .sub-title {
+      margin: 16px 0 26px;
+      font-family: Lato;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+      text-align: left;
+      text-decoration: underline;
+    }
+    .action-container {
+      display: flex;
+      flex-direction: column;
+      input {
+        margin: 16px 7px 0;
+      }
+      .configure-sub-os {
+        box-sizing: border-box;
+        padding: 12px 20px 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #6271dd;
+        color: #ffffff;
+        border: 1px solid white;
+        width: 100px;
+        margin-top: 26px;
+      }
+    }
+  }
+}
