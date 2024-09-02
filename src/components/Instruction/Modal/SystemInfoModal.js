@@ -24,7 +24,12 @@ const SystemInfoModal = ({ setSubsytemInfo }) => {
       <div className="info-container">
         <div className="title">Please identify your device configuration :</div>
         <div className="sub-title">
-          How can I check my device configuration?
+          <a
+            href="https://doselect.freshdesk.com/support/solutions/articles/1060000089317"
+            target="__blank"
+          >
+            How can I check my device configuration?
+          </a>
         </div>
         <div className="action-container">
           <label htmlFor="Debian based OS">
