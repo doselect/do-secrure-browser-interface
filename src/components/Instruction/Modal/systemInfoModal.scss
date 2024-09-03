@@ -30,10 +30,18 @@
       line-height: 20px;
       text-align: left;
       text-decoration: underline;
+      a {
+        color: #2f2b82;
+      }
     }
     .action-container {
       display: flex;
       flex-direction: column;
+      label {
+        &.bold {
+          font-weight: 600;
+        }
+      }
       input {
         margin: 16px 7px 0;
       }

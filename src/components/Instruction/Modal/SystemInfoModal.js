@@ -32,7 +32,10 @@ const SystemInfoModal = ({ setSubsytemInfo }) => {
           </a>
         </div>
         <div className="action-container">
-          <label htmlFor="Debian based OS">
+          <label
+            className={selectedCheckbox === 'Debian_based' && 'bold'}
+            htmlFor="Debian based OS"
+          >
             <input
               id="Debian_based"
               type="checkbox"
@@ -41,7 +44,10 @@ const SystemInfoModal = ({ setSubsytemInfo }) => {
             />
             My device is Linux DEB (Ubuntu)
           </label>
-          <label htmlFor="Non Debian based OS">
+          <label
+            className={selectedCheckbox === 'NonDebian_based' && 'bold'}
+            htmlFor="Non Debian based OS"
+          >
             <input
               id="NonDebian_based"
               type="checkbox"
