@@ -8,7 +8,7 @@ const DownloadApp = () => {
 
   useEffect(() => {
     if (dowloadLink) {
-      window.open(dowloadLink);
+      window.open(dowloadLink, '_self');
     }
   }, [dowloadLink]);
 
