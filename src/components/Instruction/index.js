@@ -109,8 +109,7 @@ const Instruction = () => {
                   <p>
                     This assessment needs
                     <span className="link-text">
-                      {' '}
-                      Doselect Secure Browser{' '}
+                      Doselect Secure Browser
                     </span>{' '}
                     to be downloaded.
                   </p>
