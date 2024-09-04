@@ -47,3 +47,8 @@ export const EVENTS_TO_ELECTRON = {
   CONFIGURE_DISPLAY: 'CONFIGURE_DISPLAY',
   BLOCK_GESTURES: 'BLOCK_GESTURES',
 };
+
+export const LINUX_SUB_TYPE = {
+  NON_DEBIAN: 'NonDebian_based',
+  DEBAIN: 'Debian_based',
+};

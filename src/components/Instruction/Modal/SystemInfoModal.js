@@ -1,12 +1,14 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import CandidateEnv from '../../../assets/icon/CandidateEnv.svg';
 import './systemInfoModal.scss';
+import { LINUX_SUB_TYPE } from '../../../util/constant';
 
 const SystemInfoModal = ({ setSubsytemInfo }) => {
   const [selectedCheckbox, setSelectedCheckbox] = useState('');
 
   const handleCheckboxChange = (event) => {
-    setSelectedCheckbox(event.target.id); // Update the state with the ID of the selected checkbox
+    setSelectedCheckbox(event); // Update the state with the ID of the selected checkbox
   };
 
   const configureSubOs = () => {
@@ -32,30 +34,47 @@ const SystemInfoModal = ({ setSubsytemInfo }) => {
           </a>
         </div>
         <div className="action-container">
-          <label
-            className={selectedCheckbox === 'Debian_based' && 'bold'}
-            htmlFor="Debian based OS"
+          <div
+            id={LINUX_SUB_TYPE.DEBAIN}
+            onClick={() => {
+              handleCheckboxChange(LINUX_SUB_TYPE.DEBAIN);
+            }}
+            className="checkbox-container"
           >
             <input
-              id="Debian_based"
               type="checkbox"
-              checked={selectedCheckbox === 'Debian_based'}
-              onChange={handleCheckboxChange}
+              checked={selectedCheckbox === LINUX_SUB_TYPE.DEBAIN}
             />
-            My device is Linux DEB (Ubuntu)
-          </label>
-          <label
-            className={selectedCheckbox === 'NonDebian_based' && 'bold'}
-            htmlFor="Non Debian based OS"
+            <div className="custom-checkbox" />
+            <label
+              htmlFor="Debian based OS"
+              className={selectedCheckbox === LINUX_SUB_TYPE.DEBAIN && 'bold'}
+            >
+              My device is Linux DEB (Ubuntu)
+            </label>
+          </div>
+
+          <div
+            id={LINUX_SUB_TYPE.NON_DEBIAN}
+            onClick={() => {
+              handleCheckboxChange(LINUX_SUB_TYPE.NON_DEBIAN);
+            }}
+            className="checkbox-container"
           >
             <input
-              id="NonDebian_based"
               type="checkbox"
-              checked={selectedCheckbox === 'NonDebian_based'}
-              onChange={handleCheckboxChange}
+              checked={selectedCheckbox === LINUX_SUB_TYPE.NON_DEBIAN}
             />
-            My device is Linux RPM (Red Hat, Fedora, SUSE)
-          </label>
+            <div className="custom-checkbox" />
+            <label
+              className={
+                selectedCheckbox === LINUX_SUB_TYPE.NON_DEBIAN && 'bold'
+              }
+              htmlFor="Non Debian based OS"
+            >
+              My device is Linux RPM (Red Hat, Fedora, SUSE)
+            </label>
+          </div>
         </div>
         <button
           type="button"
