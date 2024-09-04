@@ -38,9 +38,9 @@
       display: flex;
       flex-direction: column;
       label {
+        font-size: 14px;
         &.bold {
           font-weight: 600;
-          font-size: 14px;
         }
       }
       input {
