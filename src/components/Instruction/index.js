@@ -72,7 +72,7 @@ const Instruction = () => {
         UBA_EVENT_NAME.LOG_INFO_EVENT,
         `${decryptedUrl}- normal assessment flow`
       );
-      window.location.href = decryptedUrl;
+      window.open(decryptedUrl);
       // setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -84,9 +84,10 @@ const Instruction = () => {
   }, []);
 
   useEffect(() => {
+    proctoringUBALogger('LINUX_SUB_TYPE', subsytemInfo.info);
     if (subsytemInfo.info === 'NonDebian_based') {
       const decryptedUrl = decryptUrl(testUrl);
-      window.location.href = decryptedUrl;
+      window.open(decryptedUrl);
     }
   }, [subsytemInfo]);
 
