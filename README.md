@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+### Title
+Doselect Secure Browser
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Description
+This project is a  web application for Doselect secure browser interface. The application is built with React CRA, SCSS for styling, and UBA to track various click, view ,error log activites.
 
-## Available Scripts
 
-In the project directory, you can run:
+### Use cases
+Main UI interface for application.
+All executable commands must be passed from there to Application.
+Uba logs for both interface and application.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Project Workflow.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+1. TestaccessInput Page -> Candidate can direct input test link and access test in secure browser application .Failover case if browser does not prompt directly to Application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Instruction Page -> Can open in any normal browser .
+    Main cta 
+        a. To download the Application
+        b. To redirect to application (Doselect secure browser) by appending all qyeryParams (imp)
+    QueryParams 
+        a. dsTestUrl 
+        b. testName
+        c. CandidateEmail
 
-### `npm run build`
+3. Configure page (main component) -> This page will open in Application.
+    Use case -> Will pass all required command to executed  . ALl commands are present in utils folder
+        a. System notification check.
+        b. Check all running process by appending name of whitelisted app from utils 
+        c. Check for number of wired/wireless displays connected.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. PreTestConfigure ->
+    Usecase:
+        a. Start some recurring command that executes after certain interval
+        b. Send signal to Electron application that run BLOCK NAVIGATION SCRIPT.
+        c. send signal to start test and redirect to ASSESSMENT-URL.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
 ### Deployment
+    1.
+    2. Docker (need to configure seperate domain for each docker (central2 is configured)) : 
+        a. Build image with DockerFile present in Project directory.
+        b. Move to /etc/ngnix/sites-enabled.
+        c. Create folder with name secure_browser
+        d Append content as given below:
+           ###################### -> below content only (dont copy these special character)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+                            server {
 
-### `npm run build` fails to minify
+                listen 80;
+                client_max_body_size 4G;
+                server_name securebrowser.central2.dev.sg1.chsh.in;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+                proxy_read_timeout 600s;
+                proxy_send_timeout 600s;
+                keepalive_timeout 600s;
+
+                location / {
+                    proxy_redirect off;
+                    proxy_set_header Host $host;
+                    proxy_http_version 1.1;
+                    real_ip_header X-Forwarded-For;
+                    set_real_ip_from 0.0.0.0/0;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_pass http://localhost:5060;
+                }
+                }
+
+
+        ####################################### ends
+
+        e. Run command :
+                         docker run --rm  -d -p 5060:3000 -v "$(pwd)/src:/webapps/do-secure-browser-interface/src" -v"$(pwd)/public:/webapps/do-secure-browser-interface/public" -v "$(pwd)/.env:/webapps/do-secure-browser-interface/.env" --name secure_browser do_secure_browser
+                         
+
+        3. Local : After installing all dependencies then Run :  Npm run start
+
+
+### FAQS
+1. Why we are passing command directly from here to application?
+   Easy to add or remove more commands. Can configure for particluar use case. No needto push updates again and again.
+   Can send changes with zero downtime
+
+2. How Application communicate with frontend ?
+   When any page open's in application . App embed window.electron with some function configure in do-secure-browser-backend/preload.js
+
+3.  How application logs are passed to UBA
+    Any log must be passed to listner added and then send to uba event 
+
+
+
+
+ 
+
+
