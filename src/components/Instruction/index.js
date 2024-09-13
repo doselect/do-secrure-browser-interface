@@ -48,11 +48,13 @@ const Instruction = () => {
 
   console.log('ostype=', osType);
   useEffect(() => {
-    const { listenToElectron } = window.electron;
+    if (window.electron && window.electron.listenToElectron) {
+      const { listenToElectron } = window.electron;
     if (listenToElectron)
       listenToElectron('CONFIGURE-RESULT', (event) => {
         console.log(event);
       });
+    }
   }, []);
 
   useEffect(() => {
