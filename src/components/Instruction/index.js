@@ -46,6 +46,15 @@ const Instruction = () => {
     return decrypted;
   }
 
+  console.log('ostype=', osType);
+  useEffect(() => {
+    const { listenToElectron } = window.electron;
+    if (listenToElectron)
+      listenToElectron('CONFIGURE-RESULT', (event) => {
+        console.log(event);
+      });
+  }, []);
+
   useEffect(() => {
     if (osType === 'Linux') {
       setSubsytemInfo((prev) => ({
@@ -62,10 +71,10 @@ const Instruction = () => {
     };
 
     initTracking(ubaPayload, keyNames);
-
+    console.log(osType);
     if (
       deviceType !== 'Desktop' ||
-      (osType !== 'Windows' && osType !== 'Linux')
+      (osType !== 'Windows' && osType !== 'Linux' && osType !== 'MacOS')
     ) {
       const decryptedUrl = decryptUrl(testUrl);
       proctoringUBALogger(
