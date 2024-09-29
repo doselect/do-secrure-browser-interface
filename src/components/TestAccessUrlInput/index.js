@@ -19,16 +19,6 @@ const TestAccessUrlInput = () => {
     pageView({}, UBA_EVENT_NAME.proctoringTracker);
   }, []);
 
-  useEffect(() => {
-    if (window.electron && window.electron.listenToElectron) {
-      const { listenToElectron } = window.electron;
-    if (listenToElectron)
-      listenToElectron('CONFIGURE-RESULT', (event) => {
-        console.log(event);
-      });
-    }
-  }, []);
-
   const handleOpenTest = () => {
     if (url) {
       ctaClick({
