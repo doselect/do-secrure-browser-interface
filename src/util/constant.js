@@ -40,6 +40,9 @@ export const getAppDownloadLink = (os) => {
   if (os === 'Linux') {
     return process.env.REACT_APP_DOWNLOAD_LINK_LINUX;
   }
+  if (os === 'MacOS') {
+    return process.env.REACT_APP_DOWNLOAD_LINK_MACOS;
+  }
   return process.env.REACT_APP_DOWNLOAD_LINK_WIN;
 };
 export const EVENTS_TO_ELECTRON = {
