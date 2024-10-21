@@ -62,10 +62,9 @@ const Instruction = () => {
     };
 
     initTracking(ubaPayload, keyNames);
-
     if (
       deviceType !== 'Desktop' ||
-      (osType !== 'Windows' && osType !== 'Linux')
+      (osType !== 'Windows' && osType !== 'Linux' && osType !== 'MacOS')
     ) {
       const decryptedUrl = decryptUrl(testUrl);
       proctoringUBALogger(
