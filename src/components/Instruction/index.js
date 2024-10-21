@@ -95,7 +95,9 @@ const Instruction = () => {
     <div className="instruction-container">
       <Header />
       {isLoading ? (
-        <LoaderComponent title="" subText="Checking Device Compatibility" />
+        <div className="loader-container">
+          <LoaderComponent title="" subText="Checking Device Compatibility" />
+        </div>
       ) : (
         <>
           {subsytemInfo?.show ? (

@@ -16,6 +16,10 @@
       margin: 31px 0;
     }
   }
+  .loader-container {
+    height: calc( 100vh - 120px);
+    position: relative;
+  }
   .instruction-header {
     display: flex;
     margin-bottom: 31px;
