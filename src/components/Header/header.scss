@@ -1,0 +1,25 @@
+.header-container {
+  width: 100%;
+  height: 60px;
+  background: #10112e;
+  padding: 12px 19px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+  .test-title {
+    display: inline-block;
+    width: 300px;
+    border-left: 1px solid #404058;
+    padding-left: 20px;
+  }
+  img {
+    margin-right: 20px;
+  }
+}
+.ellipsis-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

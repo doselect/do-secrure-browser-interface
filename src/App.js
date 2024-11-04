@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './App.scss';
+import Configure from './components/Configure/Configure';
+import Instruction from './components/Instruction';
+import TestAccessUrlInput from './components/TestAccessUrlInput';
+import { PAGE_ROUTE } from './util/constant';
+import './util/ubaInitialiser';
+import DownloadApp from './components/DownloadApp';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <></>,
+    },
+    {
+      path: PAGE_ROUTE.CONFIGURE,
+      element: <Configure />,
+    },
+    {
+      path: PAGE_ROUTE.INSTRUCTION,
+      element: <Instruction />,
+    },
+    {
+      path: PAGE_ROUTE.TEST_ROUTE,
+      element: <TestAccessUrlInput />,
+    },
+    {
+      path: PAGE_ROUTE.DOWNLOAD_APP,
+      element: <DownloadApp />,
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;
