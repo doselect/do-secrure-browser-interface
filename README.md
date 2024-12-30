@@ -82,7 +82,7 @@ Uba logs for both interface and application.
 ### FAQS
 1. Why we are passing command directly from here to application?
    Easy to add or remove more commands. Can configure for particluar use case. No needto push updates again and again.
-   Can send changes with zero downtime
+   Can send changes with zero downtime.
 
 2. How Application communicate with frontend ?
    When any page open's in application . App embed window.electron with some function configure in do-secure-browser-backend/preload.js
